@@ -13,7 +13,7 @@ namespace FencMate
 {
     partial class FencingMateField
     {
-        private readonly FencingGame game = new FencingGame();
+        private readonly FencingGame Game = new FencingGame();
         private SoundPlayer ToucheSound;
         private SoundPlayer ReadySound;
         private SoundPlayer ToucheTouchSound;
@@ -21,15 +21,15 @@ namespace FencMate
         {
             // bind mouse
             CatchMouse(this);
-            fencingGame.OnReadySet = OnReadySet;
-            fencingGame.OnToucheSet = OnToucheSet;
-            fencingGame.OnTouchFrom = OnTouchFrom;
-            fencingGame.OnToucheTouch = OnToucheTouch;
-            fencingGame.OnStop = OnStop;
+            Game.OnReadySet = OnReadySet;
+            Game.OnToucheSet = OnToucheSet;
+            Game.OnTouchFrom = OnTouchFrom;
+            Game.OnToucheTouch = OnToucheTouch;
+            Game.OnStop = OnStop;
 
             SetupSounds();
 
-            fencingGame.Start();
+            Game.Start();
         }
 
 
@@ -53,16 +53,16 @@ namespace FencMate
         {
             if (e.Button == MouseButtons.Middle)
             {
-                if (fencingGame.State != GameState.Stopped)
+                if (Game.State != GameState.Stopped)
                 {
-                    fencingGame.Stop();
+                    Game.Stop();
                 }
                 else
                 {
-                    fencingGame.Start();
+                    Game.Start();
                 }
             }
-            if (fencingGame.State == GameState.Stopped)
+            if (Game.State == GameState.Stopped)
             {
                 return;
             }
@@ -74,15 +74,15 @@ namespace FencMate
                 DateTime = DateTimeOffset.Now,
                 Player = player
             };
-            fencingGame.AddEvent(ev, (msg) => { } /*DebugInfo*/);
+            Game.AddEvent(ev, (msg) => { } /*DebugInfo*/);
             UpdateViewport();
         }
 
         private void UpdateViewport()
         {
             // redraw
-            RightPlayer.Text = $"Right {fencingGame.Events.Where(e => e.Player == Player.Right).Count()}";
-            LeftPlayer.Text = $"Left {fencingGame.Events.Where(e => e.Player == Player.Left).Count()}";
+            RightPlayer.Text = $"Right {Game.Events.Where(e => e.Player == Player.Right).Count()}";
+            LeftPlayer.Text = $"Left {Game.Events.Where(e => e.Player == Player.Left).Count()}";
         }
 
         private void DebugInfo(string msg)
