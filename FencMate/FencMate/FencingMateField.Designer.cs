@@ -31,7 +31,10 @@ namespace FencMate
         {
             this.LeftPlayer = new System.Windows.Forms.Label();
             this.RightPlayer = new System.Windows.Forms.Label();
-            this.GameState = new System.Windows.Forms.Label();
+            this.GameStateInfo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LeftEvents = new System.Windows.Forms.Label();
+            this.RightEvents = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LeftPlayer
@@ -56,24 +59,54 @@ namespace FencMate
             this.RightPlayer.TabIndex = 1;
             this.RightPlayer.Text = "Right 0";
             // 
-            // GameState
+            // GameStateInfo
             // 
-            this.GameState.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.GameState.AutoSize = true;
-            this.GameState.BackColor = System.Drawing.SystemColors.Window;
-            this.GameState.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GameState.Location = new System.Drawing.Point(320, 28);
-            this.GameState.Name = "GameState";
-            this.GameState.Size = new System.Drawing.Size(147, 46);
-            this.GameState.TabIndex = 2;
-            this.GameState.Text = "Stopped";
+            this.GameStateInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.GameStateInfo.AutoSize = true;
+            this.GameStateInfo.BackColor = System.Drawing.SystemColors.Window;
+            this.GameStateInfo.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.GameStateInfo.Location = new System.Drawing.Point(320, 28);
+            this.GameStateInfo.Name = "GameStateInfo";
+            this.GameStateInfo.Size = new System.Drawing.Size(147, 46);
+            this.GameStateInfo.TabIndex = 2;
+            this.GameStateInfo.Text = "Stopped";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(264, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(273, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Press Middle mouse button to start/stop the game";
+            // 
+            // LeftEvents
+            // 
+            this.LeftEvents.AutoSize = true;
+            this.LeftEvents.Location = new System.Drawing.Point(76, 102);
+            this.LeftEvents.Name = "LeftEvents";
+            this.LeftEvents.Size = new System.Drawing.Size(41, 15);
+            this.LeftEvents.TabIndex = 4;
+            this.LeftEvents.Text = "Events";
+            // 
+            // RightEvents
+            // 
+            this.RightEvents.AutoSize = true;
+            this.RightEvents.Location = new System.Drawing.Point(520, 102);
+            this.RightEvents.Name = "RightEvents";
+            this.RightEvents.Size = new System.Drawing.Size(41, 15);
+            this.RightEvents.TabIndex = 5;
+            this.RightEvents.Text = "Events";
             // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.GameState);
+            this.Controls.Add(this.RightEvents);
+            this.Controls.Add(this.LeftEvents);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.GameStateInfo);
             this.Controls.Add(this.RightPlayer);
             this.Controls.Add(this.LeftPlayer);
             this.Name = "FencingMateField";
@@ -87,7 +120,10 @@ namespace FencMate
 
         private System.Windows.Forms.Label LeftPlayer;
         private System.Windows.Forms.Label RightPlayer;
-        private System.Windows.Forms.Label GameState;
+        private System.Windows.Forms.Label GameStateInfo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LeftEvents;
+        private System.Windows.Forms.Label RightEvents;
     }
 }
 
