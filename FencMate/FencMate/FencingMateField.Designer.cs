@@ -31,11 +31,12 @@ namespace FencMate
         {
             this.LeftPlayer = new System.Windows.Forms.Label();
             this.RightPlayer = new System.Windows.Forms.Label();
-            this.DebugText = new System.Windows.Forms.Label();
+            this.GameState = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LeftPlayer
             // 
+            this.LeftPlayer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LeftPlayer.AutoSize = true;
             this.LeftPlayer.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LeftPlayer.Location = new System.Drawing.Point(76, 28);
@@ -46,6 +47,7 @@ namespace FencMate
             // 
             // RightPlayer
             // 
+            this.RightPlayer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RightPlayer.AutoSize = true;
             this.RightPlayer.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RightPlayer.Location = new System.Drawing.Point(520, 28);
@@ -54,21 +56,24 @@ namespace FencMate
             this.RightPlayer.TabIndex = 1;
             this.RightPlayer.Text = "Right 0";
             // 
-            // label1
+            // GameState
             // 
-            this.DebugText.AutoSize = true;
-            this.DebugText.Location = new System.Drawing.Point(304, 16);
-            this.DebugText.Name = "Log";
-            this.DebugText.Size = new System.Drawing.Size(38, 15);
-            this.DebugText.TabIndex = 2;
-            this.DebugText.Text = "Log";
+            this.GameState.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.GameState.AutoSize = true;
+            this.GameState.BackColor = System.Drawing.SystemColors.Window;
+            this.GameState.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.GameState.Location = new System.Drawing.Point(320, 28);
+            this.GameState.Name = "GameState";
+            this.GameState.Size = new System.Drawing.Size(147, 46);
+            this.GameState.TabIndex = 2;
+            this.GameState.Text = "Stopped";
             // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.DebugText);
+            this.Controls.Add(this.GameState);
             this.Controls.Add(this.RightPlayer);
             this.Controls.Add(this.LeftPlayer);
             this.Name = "FencingMateField";
@@ -82,7 +87,7 @@ namespace FencMate
 
         private System.Windows.Forms.Label LeftPlayer;
         private System.Windows.Forms.Label RightPlayer;
-        private System.Windows.Forms.Label DebugText;
+        private System.Windows.Forms.Label GameState;
     }
 }
 
