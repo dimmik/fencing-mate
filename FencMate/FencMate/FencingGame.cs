@@ -8,7 +8,7 @@ namespace FencMate
     public class FencingGame
     {
         private readonly int SameDiffInMs = 40; // 0.04 s
-        private readonly int ReadyInMs = 3000; // 3 s
+        private readonly int ReadyInMs = 1400; // 2 s
         private List<FencingTouchEvent> events { get; } = new List<FencingTouchEvent>();
         public DateTimeOffset DateTimeStarted { get; private set; } = DateTimeOffset.Now;
         public IEnumerable<FencingTouchEvent> Events => events;
@@ -31,6 +31,16 @@ namespace FencMate
             State = GameState.Stopped;
             OnStop();
         }
+        public void Pause()
+        {
+            //events.Clear();
+            State = GameState.Stopped;
+            OnStop();
+        }
+        public void Resume()
+        {
+            SetReady((m) => { });
+        }
 
         public void AddEvent(FencingTouchEvent e, Action<string> log)
         {
@@ -52,6 +62,8 @@ namespace FencMate
                     {
                         log($"Double Touch");
                         events.Add(e);
+                        lastEvent.IsDouble = true;
+                        e.IsDouble = true;
                         OnTouchFrom(e.Player);
                     }
                     SetTouche(log);
@@ -66,6 +78,8 @@ namespace FencMate
                 }
             }
         }
+
+
         private void SetTouche(Action<string> log)
         {
             ToucheTimer?.Change(Timeout.Infinite, Timeout.Infinite);
@@ -108,6 +122,7 @@ namespace FencMate
     {
         public Player Player;
         public DateTimeOffset DateTime;
+        public bool IsDouble = false;
     }
     public enum Player
     {

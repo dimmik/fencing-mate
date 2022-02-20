@@ -35,6 +35,8 @@ namespace FencMate
             this.label1 = new System.Windows.Forms.Label();
             this.LeftEvents = new System.Windows.Forms.Label();
             this.RightEvents = new System.Windows.Forms.Label();
+            this.SoundsLabel = new System.Windows.Forms.Label();
+            this.KbdInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LeftPlayer
@@ -73,6 +75,7 @@ namespace FencMate
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(264, 9);
             this.label1.Name = "label1";
@@ -82,27 +85,51 @@ namespace FencMate
             // 
             // LeftEvents
             // 
+            this.LeftEvents.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LeftEvents.AutoSize = true;
+            this.LeftEvents.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LeftEvents.Location = new System.Drawing.Point(76, 102);
             this.LeftEvents.Name = "LeftEvents";
-            this.LeftEvents.Size = new System.Drawing.Size(41, 15);
+            this.LeftEvents.Size = new System.Drawing.Size(66, 25);
             this.LeftEvents.TabIndex = 4;
             this.LeftEvents.Text = "Events";
             // 
             // RightEvents
             // 
+            this.RightEvents.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RightEvents.AutoSize = true;
+            this.RightEvents.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RightEvents.Location = new System.Drawing.Point(520, 102);
             this.RightEvents.Name = "RightEvents";
-            this.RightEvents.Size = new System.Drawing.Size(41, 15);
+            this.RightEvents.Size = new System.Drawing.Size(66, 25);
             this.RightEvents.TabIndex = 5;
             this.RightEvents.Text = "Events";
+            // 
+            // SoundsLabel
+            // 
+            this.SoundsLabel.AutoSize = true;
+            this.SoundsLabel.Location = new System.Drawing.Point(562, 9);
+            this.SoundsLabel.Name = "SoundsLabel";
+            this.SoundsLabel.Size = new System.Drawing.Size(158, 15);
+            this.SoundsLabel.TabIndex = 6;
+            this.SoundsLabel.Text = "[space to toggle] Sounds: on";
+            // 
+            // KbdInfo
+            // 
+            this.KbdInfo.AutoSize = true;
+            this.KbdInfo.Location = new System.Drawing.Point(29, 9);
+            this.KbdInfo.Name = "KbdInfo";
+            this.KbdInfo.Size = new System.Drawing.Size(117, 15);
+            this.KbdInfo.TabIndex = 7;
+            this.KbdInfo.Text = "P to pause; R to reset";
             // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.KbdInfo);
+            this.Controls.Add(this.SoundsLabel);
             this.Controls.Add(this.RightEvents);
             this.Controls.Add(this.LeftEvents);
             this.Controls.Add(this.label1);
@@ -124,6 +151,8 @@ namespace FencMate
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LeftEvents;
         private System.Windows.Forms.Label RightEvents;
+        private System.Windows.Forms.Label SoundsLabel;
+        private System.Windows.Forms.Label KbdInfo;
     }
 }
 
