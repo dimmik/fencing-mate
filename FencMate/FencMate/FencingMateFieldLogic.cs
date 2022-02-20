@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FencMate
@@ -10,6 +14,9 @@ namespace FencMate
     partial class FencingMateField
     {
         private readonly FencingGame fencingGame = new FencingGame();
+        private SoundPlayer ToucheSound;
+        private SoundPlayer ReadySound;
+        private SoundPlayer ToucheTouchSound;
         private void InitGame()
         {
             // bind mouse
@@ -17,8 +24,20 @@ namespace FencMate
             fencingGame.OnReadySet = OnReadySet;
             fencingGame.OnToucheSet = OnToucheSet;
             fencingGame.OnTouchFrom = OnTouchFrom;
+            fencingGame.OnToucheTouch = OnToucheTouch;
+
+            SetupSounds();
+
             fencingGame.Start();
         }
+
+        private void SetupSounds()
+        {
+            ReadySound = new SoundPlayer(@".\Ready.wav");
+            ToucheSound = new SoundPlayer(@".\Touche.wav");
+            ToucheTouchSound = new SoundPlayer(@".\ToucheTouch.wav");
+        }
+
         private void CatchMouse(Control ctl)
         {
             ctl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToucheMouseDown);
@@ -59,6 +78,7 @@ namespace FencMate
                 LeftPlayer.BackColor = this.BackColor;
                 RightPlayer.BackColor = this.BackColor;
                 GameState.Text = "READY";
+                Task.Run(() => { ReadySound.Play(); });
             };
             if (InvokeRequired)
             {
@@ -70,7 +90,6 @@ namespace FencMate
         }
         private void OnTouchFrom(Player p)
         {
-            var pl = p == Player.Left ? LeftPlayer : RightPlayer;
             Action a = () =>
             {
                 (p == Player.Left ? LeftPlayer : RightPlayer).BackColor = p == Player.Left ? Color.Red : Color.Green;
@@ -89,6 +108,22 @@ namespace FencMate
             Action a = () =>
             {
                 GameState.Text = "TOUCHE";
+                Task.Run(() => { ToucheSound.Play(); });
+            };
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            }
+            else
+            {
+                a();
+            }
+        }
+        private void OnToucheTouch()
+        {
+            Action a = () =>
+            {
+                Task.Run(() => { ToucheTouchSound.Play(); });
             };
             if (InvokeRequired)
             {
