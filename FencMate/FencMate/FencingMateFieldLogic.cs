@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,6 +14,9 @@ namespace FencMate
         {
             // bind mouse
             CatchMouse(this);
+            fencingGame.OnReadySet = OnReadySet;
+            fencingGame.OnToucheSet = OnToucheSet;
+            fencingGame.OnTouchFrom = OnTouchFrom;
             fencingGame.Start();
         }
         private void CatchMouse(Control ctl)
@@ -32,14 +36,14 @@ namespace FencMate
                 DateTime = DateTimeOffset.Now,
                 Player = player
             };
-            fencingGame.AddEvent(ev, DebugInfo);
+            fencingGame.AddEvent(ev, (msg) => { } /*DebugInfo*/);
             // redraw
-            RightPlayer.Text = $"Righ {fencingGame.Events.Where(e => e.Player == Player.Right).Count()}";
+            RightPlayer.Text = $"Right {fencingGame.Events.Where(e => e.Player == Player.Right).Count()}";
             LeftPlayer.Text = $"Left {fencingGame.Events.Where(e => e.Player == Player.Left).Count()}";
         }
         private void DebugInfo(string msg)
         {
-            Action<string> action = msg => { DebugText.Text = string.Join("\r\n", DebugText.Text.Split("\r\n").TakeLast(20).Concat(new[] { $"{msg}" })); };
+            Action<string> action = msg => { GameState.Text = string.Join("\r\n", GameState.Text.Split("\r\n").TakeLast(20).Concat(new[] { $"{msg}" })); };
             if (InvokeRequired)
             {
                 Invoke(action, msg);
@@ -48,9 +52,54 @@ namespace FencMate
                 action(msg);
             }
         }
-        public override bool PreProcessMessage(ref Message msg)
+        private void OnReadySet()
         {
-            return base.PreProcessMessage(ref msg);
+            Action a = () =>
+            {
+                LeftPlayer.BackColor = this.BackColor;
+                RightPlayer.BackColor = this.BackColor;
+                GameState.Text = "READY";
+            };
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            } else
+            {
+                a();
+            }
         }
+        private void OnTouchFrom(Player p)
+        {
+            var pl = p == Player.Left ? LeftPlayer : RightPlayer;
+            Action a = () =>
+            {
+                (p == Player.Left ? LeftPlayer : RightPlayer).BackColor = p == Player.Left ? Color.Red : Color.Green;
+            };
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            }
+            else
+            {
+                a();
+            }
+        }
+        private void OnToucheSet()
+        {
+            Action a = () =>
+            {
+                GameState.Text = "TOUCHE";
+            };
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            }
+            else
+            {
+                a();
+            }
+        }
+
+
     }
 }

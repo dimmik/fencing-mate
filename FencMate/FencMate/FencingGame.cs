@@ -14,9 +14,14 @@ namespace FencMate
         public GameState State { get; private set; } = GameState.Stopped;
         public void Start()
         {
-            State = GameState.Ready;
+            SetReady((m) => { });
+            //State = GameState.Ready;
         }
         private readonly object evLock = new object();
+        public Action<Player> OnTouchFrom = (p) => { };
+        public Action OnToucheTouch = () => { };
+        public Action OnToucheSet = () => { };
+        public Action OnReadySet = () => { };
 
         public void AddEvent(FencingTouchEvent e, Action<string> log)
         {
@@ -27,6 +32,7 @@ namespace FencMate
                 {
                     log($"Ready. Touch from {e.Player}");
                     events.Add(e);
+                    OnTouchFrom(e.Player);
                     SetOneTouch(log);
                     return;
                 } else  if (State == GameState.OneTouch)
@@ -37,12 +43,14 @@ namespace FencMate
                     {
                         log($"Double Touch");
                         events.Add(e);
+                        OnTouchFrom(e.Player);
                     }
                     SetTouche(log);
                     return;
                 } else if (State == GameState.Touche)
                 {
                     log("Touche. Wait please");
+                    OnToucheTouch();
                 } else
                 {
                     log($"Hmm. State is {State}");
@@ -56,6 +64,7 @@ namespace FencMate
             {
                 log($"Set Touche");
                 State = GameState.Touche;
+                OnToucheSet();
                 // 3s after touche new touche
                 ReadyTimer = new Timer((s) => { SetReady(log); }, null, ReadyInMs, Timeout.Infinite);
             }
@@ -65,6 +74,7 @@ namespace FencMate
             ReadyTimer?.Change(Timeout.Infinite, Timeout.Infinite);
             log($"Set Ready");
             State = GameState.Ready;
+            OnReadySet();
         }
         private void SetOneTouch(Action<string> log)
         {
@@ -72,7 +82,6 @@ namespace FencMate
             State = GameState.OneTouch;
             ToucheTimer = new Timer((s) => { SetTouche(log); }, null, SameDiffInMs, Timeout.Infinite);
         }
-        private Timer OneTouchTimer;
         private Timer ToucheTimer;
         private Timer ReadyTimer;
 
