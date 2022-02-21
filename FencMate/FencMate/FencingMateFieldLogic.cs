@@ -14,6 +14,7 @@ namespace FencMate
     partial class FencingMateField
     {
         private readonly FencingGame Game = new FencingGame();
+        private readonly GameConfiguration GameConfiguration = new GameConfiguration();
         private bool Sounds = false;
         private SoundPlayer ToucheSound;
         private SoundPlayer ReadySound;
@@ -27,6 +28,12 @@ namespace FencMate
             Game.OnTouchFrom = OnTouchFrom;
             Game.OnToucheTouch = OnToucheTouch;
             Game.OnStop = OnStop;
+            Game.OnFinished = OnFinished;
+
+            Game.IsFinished = g => {
+                var (f, p) = GameConfiguration.IsFinished(g);
+                return f;
+            };
 
             SetupSounds();
 
@@ -58,21 +65,24 @@ namespace FencMate
             {
                 ToggleSound();
             }
-            if (e.KeyCode == Keys.P)
+            if (e.KeyCode == Keys.P) // pause
             {
-                if (Game.State == GameState.Stopped)
+                if (Game.State == GameState.Ready || Game.State == GameState.Touche)
                 {
-                    Game.Resume();
+                    Game.Stop();
                 }
                 else
                 {
-                    Game.Pause();
+                    if (!Game.IsFinished(Game))
+                    {
+                        Game.Resume();
+                    }
                 }
                 UpdateViewport();
             }
-            if (e.KeyCode == Keys.R)
+            if (e.KeyCode == Keys.R) // reset
             {
-                if (Game.State == GameState.Stopped)
+                if (Game.State == GameState.Stopped || Game.IsFinished(Game))
                 {
                     Game.Start();
                 }
@@ -108,18 +118,19 @@ namespace FencMate
 
         private void ToucheMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Middle)
+            if (e.Button == MouseButtons.Middle) // Restart
             {
-                if (Game.State != GameState.Stopped)
-                {
-                    Game.Stop();
-                }
-                else
+                if (Game.State == GameState.Stopped || Game.IsFinished(Game))
                 {
                     Game.Start();
                 }
+                else
+                {
+                    Game.Stop();
+                }
+                UpdateViewport();
             }
-            if (Game.State == GameState.Stopped)
+            if (Game.State != GameState.Ready && Game.State != GameState.Touche && Game.State != GameState.OneTouch)
             {
                 return;
             }
@@ -211,6 +222,23 @@ namespace FencMate
             {
                 GameStateInfo.Text = "TOUCHE";
                 Task.Run(() => { if (Sounds) ToucheSound.Play(); });
+                var (finished, winner) = GameConfiguration.IsFinished(Game);
+                if (finished) Game.Stop();
+            };
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            }
+            else
+            {
+                a();
+            }
+        }
+        private void OnFinished()
+        {
+            Action a = () =>
+            {
+                GameStateInfo.Text = "Finished";
             };
             if (InvokeRequired)
             {

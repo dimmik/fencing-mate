@@ -5,6 +5,7 @@
         Stopped,
         Ready,
         OneTouch,
-        Touche
+        Touche,
+        Finished
     }
 }
