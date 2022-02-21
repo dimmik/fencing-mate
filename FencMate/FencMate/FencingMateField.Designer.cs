@@ -39,6 +39,14 @@ namespace FencMate
             this.KbdInfo = new System.Windows.Forms.Label();
             this.GameConfigurationLabel = new System.Windows.Forms.Label();
             this.TimerLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.GameTypeCombobox = new System.Windows.Forms.ComboBox();
+            this.ScoreLimitUpdown = new System.Windows.Forms.NumericUpDown();
+            this.TimeLimitUpDown = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreLimitUpdown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeLimitUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // LeftPlayer
@@ -46,7 +54,7 @@ namespace FencMate
             this.LeftPlayer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LeftPlayer.AutoSize = true;
             this.LeftPlayer.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LeftPlayer.Location = new System.Drawing.Point(76, 28);
+            this.LeftPlayer.Location = new System.Drawing.Point(82, 31);
             this.LeftPlayer.Name = "LeftPlayer";
             this.LeftPlayer.Size = new System.Drawing.Size(146, 65);
             this.LeftPlayer.TabIndex = 0;
@@ -57,7 +65,7 @@ namespace FencMate
             this.RightPlayer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RightPlayer.AutoSize = true;
             this.RightPlayer.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RightPlayer.Location = new System.Drawing.Point(520, 28);
+            this.RightPlayer.Location = new System.Drawing.Point(526, 31);
             this.RightPlayer.Name = "RightPlayer";
             this.RightPlayer.Size = new System.Drawing.Size(179, 65);
             this.RightPlayer.TabIndex = 1;
@@ -68,7 +76,7 @@ namespace FencMate
             this.GameStateInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GameStateInfo.BackColor = System.Drawing.SystemColors.Window;
             this.GameStateInfo.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GameStateInfo.Location = new System.Drawing.Point(320, 28);
+            this.GameStateInfo.Location = new System.Drawing.Point(326, 31);
             this.GameStateInfo.Name = "GameStateInfo";
             this.GameStateInfo.Size = new System.Drawing.Size(147, 100);
             this.GameStateInfo.TabIndex = 2;
@@ -79,7 +87,7 @@ namespace FencMate
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(264, 9);
+            this.label1.Location = new System.Drawing.Point(270, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(273, 15);
             this.label1.TabIndex = 3;
@@ -90,7 +98,7 @@ namespace FencMate
             this.LeftEvents.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LeftEvents.AutoSize = true;
             this.LeftEvents.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LeftEvents.Location = new System.Drawing.Point(76, 102);
+            this.LeftEvents.Location = new System.Drawing.Point(82, 105);
             this.LeftEvents.Name = "LeftEvents";
             this.LeftEvents.Size = new System.Drawing.Size(66, 25);
             this.LeftEvents.TabIndex = 4;
@@ -101,7 +109,7 @@ namespace FencMate
             this.RightEvents.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RightEvents.AutoSize = true;
             this.RightEvents.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RightEvents.Location = new System.Drawing.Point(520, 102);
+            this.RightEvents.Location = new System.Drawing.Point(526, 105);
             this.RightEvents.Name = "RightEvents";
             this.RightEvents.Size = new System.Drawing.Size(66, 25);
             this.RightEvents.TabIndex = 5;
@@ -111,7 +119,7 @@ namespace FencMate
             // 
             this.SoundsLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SoundsLabel.AutoSize = true;
-            this.SoundsLabel.Location = new System.Drawing.Point(562, 9);
+            this.SoundsLabel.Location = new System.Drawing.Point(568, 12);
             this.SoundsLabel.Name = "SoundsLabel";
             this.SoundsLabel.Size = new System.Drawing.Size(158, 15);
             this.SoundsLabel.TabIndex = 6;
@@ -121,7 +129,7 @@ namespace FencMate
             // 
             this.KbdInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.KbdInfo.AutoSize = true;
-            this.KbdInfo.Location = new System.Drawing.Point(29, 9);
+            this.KbdInfo.Location = new System.Drawing.Point(35, 12);
             this.KbdInfo.Name = "KbdInfo";
             this.KbdInfo.Size = new System.Drawing.Size(117, 15);
             this.KbdInfo.TabIndex = 7;
@@ -131,7 +139,7 @@ namespace FencMate
             // 
             this.GameConfigurationLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GameConfigurationLabel.AutoSize = true;
-            this.GameConfigurationLabel.Location = new System.Drawing.Point(291, 138);
+            this.GameConfigurationLabel.Location = new System.Drawing.Point(297, 141);
             this.GameConfigurationLabel.Name = "GameConfigurationLabel";
             this.GameConfigurationLabel.Size = new System.Drawing.Size(115, 15);
             this.GameConfigurationLabel.TabIndex = 8;
@@ -142,17 +150,77 @@ namespace FencMate
             this.TimerLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TimerLabel.AutoSize = true;
             this.TimerLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TimerLabel.Location = new System.Drawing.Point(291, 265);
+            this.TimerLabel.Location = new System.Drawing.Point(297, 268);
             this.TimerLabel.Name = "TimerLabel";
             this.TimerLabel.Size = new System.Drawing.Size(191, 86);
             this.TimerLabel.TabIndex = 9;
             this.TimerLabel.Text = "00:00";
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(297, 178);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 15);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Type";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(294, 210);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 15);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "ScoreLimit";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(294, 241);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(92, 15);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "TimeLimit (min)";
+            // 
+            // GameTypeCombobox
+            // 
+            this.GameTypeCombobox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.GameTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GameTypeCombobox.FormattingEnabled = true;
+            this.GameTypeCombobox.Location = new System.Drawing.Point(386, 170);
+            this.GameTypeCombobox.Name = "GameTypeCombobox";
+            this.GameTypeCombobox.Size = new System.Drawing.Size(143, 23);
+            this.GameTypeCombobox.TabIndex = 13;
+            // 
+            // ScoreLimitUpdown
+            // 
+            this.ScoreLimitUpdown.Location = new System.Drawing.Point(436, 202);
+            this.ScoreLimitUpdown.Name = "ScoreLimitUpdown";
+            this.ScoreLimitUpdown.Size = new System.Drawing.Size(37, 23);
+            this.ScoreLimitUpdown.TabIndex = 14;
+            // 
+            // TimeLimitUpDown
+            // 
+            this.TimeLimitUpDown.Location = new System.Drawing.Point(436, 233);
+            this.TimeLimitUpDown.Name = "TimeLimitUpDown";
+            this.TimeLimitUpDown.Size = new System.Drawing.Size(37, 23);
+            this.TimeLimitUpDown.TabIndex = 15;
+            // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(812, 456);
+            this.Controls.Add(this.TimeLimitUpDown);
+            this.Controls.Add(this.ScoreLimitUpdown);
+            this.Controls.Add(this.GameTypeCombobox);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.TimerLabel);
             this.Controls.Add(this.GameConfigurationLabel);
             this.Controls.Add(this.KbdInfo);
@@ -164,7 +232,9 @@ namespace FencMate
             this.Controls.Add(this.RightPlayer);
             this.Controls.Add(this.LeftPlayer);
             this.Name = "FencingMateField";
-            this.Text = "FencingMateField";
+            this.Text = "ScoreLimit";
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreLimitUpdown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeLimitUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,6 +252,12 @@ namespace FencMate
         private System.Windows.Forms.Label KbdInfo;
         private System.Windows.Forms.Label GameConfigurationLabel;
         private System.Windows.Forms.Label TimerLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox GameTypeCombobox;
+        private System.Windows.Forms.NumericUpDown ScoreLimitUpdown;
+        private System.Windows.Forms.NumericUpDown TimeLimitUpDown;
     }
 }
 

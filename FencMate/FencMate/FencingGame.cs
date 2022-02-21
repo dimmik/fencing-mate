@@ -46,6 +46,11 @@ namespace FencMate
                 SetReady((m) => { }); 
             }
         }
+        public void Finish()
+        {
+            State = GameState.Finished;
+            OnFinished();
+        }
 
         public void AddEvent(FencingTouchEvent e, Action<string> log)
         {
@@ -99,8 +104,7 @@ namespace FencMate
                     ReadyTimer = new Timer((s) => { SetReady(log); }, null, ReadyInMs, Timeout.Infinite);
                 } else
                 {
-                    State = GameState.Finished;
-                    OnFinished();
+                    Finish();
                 }
             }
         }
