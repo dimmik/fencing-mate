@@ -107,6 +107,7 @@ namespace FencMate
             // 
             // SoundsLabel
             // 
+            this.SoundsLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SoundsLabel.AutoSize = true;
             this.SoundsLabel.Location = new System.Drawing.Point(562, 9);
             this.SoundsLabel.Name = "SoundsLabel";
@@ -116,6 +117,7 @@ namespace FencMate
             // 
             // KbdInfo
             // 
+            this.KbdInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.KbdInfo.AutoSize = true;
             this.KbdInfo.Location = new System.Drawing.Point(29, 9);
             this.KbdInfo.Name = "KbdInfo";

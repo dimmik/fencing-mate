@@ -145,14 +145,21 @@ namespace FencMate
                 RightPlayer.Text = $"Right {rEvents.Count()}";
                 LeftPlayer.Text = $"Left {lEvents.Count()}";
 
-                LeftEvents.Text = "Events\r\n" + string.Join("\r\n",
-                    lEvents.Select((e, idx) => $@"{idx+1}. {e.DateTime - Game.DateTimeStarted:mm\:ss\.ff} {(e.IsDouble ? "DBL" : "")}")
-                    );
-                RightEvents.Text = "Events\r\n" + string.Join("\r\n",
-                    rEvents.Select((e, idx) => $@"{idx+1}. {e.DateTime - Game.DateTimeStarted:mm\:ss\.ff} {(e.IsDouble ? "DBL" : "")}")
-                    );
+                LeftEvents.Text  = "Events\r\n" + Touches(lEvents);
+                RightEvents.Text = "Events\r\n" + Touches(rEvents);
             };
             update();
+        }
+
+        private string Touches(IEnumerable<FencingTouchEvent> rEvents)
+        {
+            var s = string.Join("\r\n",
+                                rEvents
+                                .Select((e, idx) => $@"{idx + 1}. {e.DateTime - Game.DateTimeStarted:mm\:ss\.fff} {(e.IsDouble ? "DBL" : "")}")
+                                .Reverse()
+                                .Take(15)
+                                );
+            return s;
         }
 
         private void DebugInfo(string msg)
