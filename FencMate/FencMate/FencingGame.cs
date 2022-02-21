@@ -19,7 +19,7 @@ namespace FencMate
             DateTimeStarted = DateTimeOffset.Now;
         }
         private readonly object evLock = new object();
-        public Action<Player> OnTouchFrom = (p) => { };
+        public Action<PlayerPosition> OnTouchFrom = (p) => { };
         public Action OnToucheTouch = () => { };
         public Action OnToucheSet = () => { };
         public Action OnReadySet = () => { };
@@ -108,24 +108,5 @@ namespace FencMate
         private Timer ToucheTimer;
         private Timer ReadyTimer;
 
-    }
-
-    public enum GameState
-    {
-        Stopped,
-        Ready,
-        OneTouch,
-        Touche
-    }
-
-    public class FencingTouchEvent
-    {
-        public Player Player;
-        public DateTimeOffset DateTime;
-        public bool IsDouble = false;
-    }
-    public enum Player
-    {
-        Left, Right
     }
 }

@@ -125,7 +125,7 @@ namespace FencMate
             }
             if (!(e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)) return; // only r/l buttons below
 
-            Player player = e.Button == MouseButtons.Left ? Player.Left : Player.Right;
+            PlayerPosition player = e.Button == MouseButtons.Left ? PlayerPosition.Left : PlayerPosition.Right;
             var ev = new FencingTouchEvent()
             {
                 DateTime = DateTimeOffset.Now,
@@ -139,8 +139,8 @@ namespace FencMate
         {
             Action update = () =>
             {
-                var rEvents = Game.Events.Where(e => e.Player == Player.Right);
-                var lEvents = Game.Events.Where(e => e.Player == Player.Left);
+                var rEvents = Game.Events.Where(e => e.Player == PlayerPosition.Right);
+                var lEvents = Game.Events.Where(e => e.Player == PlayerPosition.Left);
                 // redraw
                 RightPlayer.Text = $"Right {rEvents.Count()}";
                 LeftPlayer.Text = $"Left {lEvents.Count()}";
@@ -183,11 +183,11 @@ namespace FencMate
                 a();
             }
         }
-        private void OnTouchFrom(Player p)
+        private void OnTouchFrom(PlayerPosition p)
         {
             Action a = () =>
             {
-                (p == Player.Left ? LeftPlayer : RightPlayer).BackColor = p == Player.Left ? Color.Red : Color.Green;
+                (p == PlayerPosition.Left ? LeftPlayer : RightPlayer).BackColor = p == PlayerPosition.Left ? Color.Red : Color.Green;
             };
             if (InvokeRequired)
             {
