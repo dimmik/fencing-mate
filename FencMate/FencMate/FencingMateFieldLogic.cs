@@ -93,7 +93,24 @@ namespace FencMate
         }
 
         
-
+        private void SafeInvoke(Action a)
+        {
+            try
+            {
+                if (InvokeRequired)
+                {
+                    Invoke(a);
+                }
+                else
+                {
+                    a();
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                // intentionally nothing
+            }
+        }
         private void InitTimer()
         {
             System.Threading.Timer t = new System.Threading.Timer((s) => {
@@ -108,14 +125,7 @@ namespace FencMate
                         if (Game.IsFinished(Game)) Game.Finish();
                     }
                     };
-                if (InvokeRequired) 
-                {
-                    Invoke(a);
-                } 
-                else
-                {
-                    a();
-                }
+                SafeInvoke(a);
             }, null, 1000, 1000);
         }
 
@@ -190,14 +200,7 @@ namespace FencMate
             {
                 SoundsLabel.Text = $"[space to toggle] Sounds: {(Sounds ? "on" : "off")}";
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            }
-            else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
 
         private void ToucheMouseDown(object sender, MouseEventArgs e)
@@ -257,17 +260,7 @@ namespace FencMate
             return s;
         }
 
-        private void DebugInfo(string msg)
-        {
-            Action<string> action = msg => { GameStateInfo.Text = string.Join("\r\n", GameStateInfo.Text.Split("\r\n").TakeLast(20).Concat(new[] { $"{msg}" })); };
-            if (InvokeRequired)
-            {
-                Invoke(action, msg);
-            } else
-            {
-                action(msg);
-            }
-        }
+        
         private void OnReadySet()
         {
             Action a = () =>
@@ -278,13 +271,7 @@ namespace FencMate
                 SetEnabledGameControls(this, false);
                 Task.Run(() => { if (Sounds) ReadySound.Play(); });
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            } else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
         private void OnTouchFrom(PlayerPosition p)
         {
@@ -292,14 +279,7 @@ namespace FencMate
             {
                 (p == PlayerPosition.Left ? LeftPlayer : RightPlayer).BackColor = p == PlayerPosition.Left ? Color.Red : Color.Green;
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            }
-            else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
         private void OnToucheSet()
         {
@@ -310,14 +290,7 @@ namespace FencMate
                 var (finished, winner) = GameConfiguration.IsFinished(Game);
                 if (finished) Game.Stop();
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            }
-            else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
         private void OnFinished()
         {
@@ -331,14 +304,7 @@ namespace FencMate
 
                 Task.Run(() => { if (Sounds) FinishedSound.Play(); });
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            }
-            else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
         private void OnToucheTouch()
         {
@@ -346,14 +312,7 @@ namespace FencMate
             {
                 Task.Run(() => { if (Sounds) ToucheTouchSound.Play(); });
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            }
-            else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
         private void OnStop()
         {
@@ -364,14 +323,7 @@ namespace FencMate
 
                 UpdateViewport();
             };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            }
-            else
-            {
-                a();
-            }
+            SafeInvoke(a);
         }
 
 
