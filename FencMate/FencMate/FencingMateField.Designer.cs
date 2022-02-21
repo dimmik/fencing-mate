@@ -37,6 +37,8 @@ namespace FencMate
             this.RightEvents = new System.Windows.Forms.Label();
             this.SoundsLabel = new System.Windows.Forms.Label();
             this.KbdInfo = new System.Windows.Forms.Label();
+            this.GameConfigurationLabel = new System.Windows.Forms.Label();
+            this.TimerLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LeftPlayer
@@ -64,14 +66,14 @@ namespace FencMate
             // GameStateInfo
             // 
             this.GameStateInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.GameStateInfo.AutoSize = true;
             this.GameStateInfo.BackColor = System.Drawing.SystemColors.Window;
             this.GameStateInfo.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GameStateInfo.Location = new System.Drawing.Point(320, 28);
             this.GameStateInfo.Name = "GameStateInfo";
-            this.GameStateInfo.Size = new System.Drawing.Size(147, 46);
+            this.GameStateInfo.Size = new System.Drawing.Size(147, 100);
             this.GameStateInfo.TabIndex = 2;
             this.GameStateInfo.Text = "Stopped";
+            this.GameStateInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1
             // 
@@ -125,11 +127,34 @@ namespace FencMate
             this.KbdInfo.TabIndex = 7;
             this.KbdInfo.Text = "P to pause; R to reset";
             // 
+            // GameConfigurationLabel
+            // 
+            this.GameConfigurationLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.GameConfigurationLabel.AutoSize = true;
+            this.GameConfigurationLabel.Location = new System.Drawing.Point(291, 138);
+            this.GameConfigurationLabel.Name = "GameConfigurationLabel";
+            this.GameConfigurationLabel.Size = new System.Drawing.Size(115, 15);
+            this.GameConfigurationLabel.TabIndex = 8;
+            this.GameConfigurationLabel.Text = "Game Configuration";
+            // 
+            // TimerLabel
+            // 
+            this.TimerLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.TimerLabel.AutoSize = true;
+            this.TimerLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TimerLabel.Location = new System.Drawing.Point(291, 265);
+            this.TimerLabel.Name = "TimerLabel";
+            this.TimerLabel.Size = new System.Drawing.Size(191, 86);
+            this.TimerLabel.TabIndex = 9;
+            this.TimerLabel.Text = "00:00";
+            // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TimerLabel);
+            this.Controls.Add(this.GameConfigurationLabel);
             this.Controls.Add(this.KbdInfo);
             this.Controls.Add(this.SoundsLabel);
             this.Controls.Add(this.RightEvents);
@@ -155,6 +180,8 @@ namespace FencMate
         private System.Windows.Forms.Label RightEvents;
         private System.Windows.Forms.Label SoundsLabel;
         private System.Windows.Forms.Label KbdInfo;
+        private System.Windows.Forms.Label GameConfigurationLabel;
+        private System.Windows.Forms.Label TimerLabel;
     }
 }
 

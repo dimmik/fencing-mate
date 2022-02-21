@@ -15,31 +15,36 @@ namespace FencMate
         public GameState State { get; private set; } = GameState.Stopped;
         public void Start()
         {
-            SetReady((m) => { });
+            events.Clear();
             DateTimeStarted = DateTimeOffset.Now;
+            SetReady((m) => { });
         }
+
         private readonly object evLock = new object();
-        public Action<Player> OnTouchFrom = (p) => { };
+        public Action<PlayerPosition> OnTouchFrom = (p) => { };
         public Action OnToucheTouch = () => { };
         public Action OnToucheSet = () => { };
         public Action OnReadySet = () => { };
         public Action OnStop = () => { };
+        public Action OnFinished = () => { };
 
+        public Func<FencingGame, bool> IsFinished = (g) => false;
+        private DateTimeOffset stoppedTime = DateTimeOffset.Now;
         public void Stop()
         {
-            events.Clear();
             State = GameState.Stopped;
-            OnStop();
-        }
-        public void Pause()
-        {
-            //events.Clear();
-            State = GameState.Stopped;
+            stoppedTime = DateTimeOffset.Now;
             OnStop();
         }
         public void Resume()
         {
-            SetReady((m) => { });
+            if (!IsFinished(this)) 
+            {
+                var now = DateTimeOffset.Now;
+                var diff = now - stoppedTime;
+                DateTimeStarted += diff;
+                SetReady((m) => { }); 
+            }
         }
 
         public void AddEvent(FencingTouchEvent e, Action<string> log)
@@ -88,14 +93,22 @@ namespace FencMate
                 log($"Set Touche");
                 State = GameState.Touche;
                 OnToucheSet();
-                // 3s after touche new touche
-                ReadyTimer = new Timer((s) => { SetReady(log); }, null, ReadyInMs, Timeout.Infinite);
+                if (!IsFinished(this))
+                {
+                    // 3s after touche new touche
+                    ReadyTimer = new Timer((s) => { SetReady(log); }, null, ReadyInMs, Timeout.Infinite);
+                } else
+                {
+                    State = GameState.Finished;
+                    OnFinished();
+                }
             }
         }
+
+
         private void SetReady(Action<string> log)
         {
             ReadyTimer?.Change(Timeout.Infinite, Timeout.Infinite);
-            log($"Set Ready");
             State = GameState.Ready;
             OnReadySet();
         }
@@ -108,24 +121,5 @@ namespace FencMate
         private Timer ToucheTimer;
         private Timer ReadyTimer;
 
-    }
-
-    public enum GameState
-    {
-        Stopped,
-        Ready,
-        OneTouch,
-        Touche
-    }
-
-    public class FencingTouchEvent
-    {
-        public Player Player;
-        public DateTimeOffset DateTime;
-        public bool IsDouble = false;
-    }
-    public enum Player
-    {
-        Left, Right
     }
 }
