@@ -38,9 +38,55 @@ namespace FencMate
             SetupSounds();
 
             ReflectSoundsInfo();
-            //Game.Start();
+
+            InitTimer();
+
+            DisplayGameConfig();
         }
 
+        private void DisplayGameConfig()
+        {
+            Action a = () =>
+            {
+                GameConfigurationLabel.Text = @$"
+Game Configuration:
+Type: {GameConfiguration.GameType}
+ScoreLimit: {GameConfiguration.ScoreLimit}
+TimeLimit: {GameConfiguration.TimeLimit}
+";
+            };
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            } else
+            {
+                a();
+            }
+        }
+
+        private void InitTimer()
+        {
+            System.Threading.Timer t = new System.Threading.Timer((s) => {
+                Action a = () => {
+                    if (!(Game.State == GameState.Stopped || Game.State == GameState.Finished))
+                    {
+                        var gStart = Game.DateTimeStarted;
+                        var now = DateTimeOffset.Now;
+                        var timeLimit = GameConfiguration.TimeLimit;
+                        TimeSpan remains = timeLimit - (now - gStart);
+                        TimerLabel.Text = $@"{remains:mm\:ss}";
+                    }
+                    };
+                if (InvokeRequired) 
+                {
+                    Invoke(a);
+                } 
+                else
+                {
+                    a();
+                }
+            }, null, 1000, 1000);
+        }
 
         private void SetupSounds()
         {

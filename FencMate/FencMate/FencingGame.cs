@@ -29,15 +29,22 @@ namespace FencMate
         public Action OnFinished = () => { };
 
         public Func<FencingGame, bool> IsFinished = (g) => false;
-
+        private DateTimeOffset stoppedTime = DateTimeOffset.Now;
         public void Stop()
         {
             State = GameState.Stopped;
+            stoppedTime = DateTimeOffset.Now;
             OnStop();
         }
         public void Resume()
         {
-            if (!IsFinished(this)) SetReady((m) => { });
+            if (!IsFinished(this)) 
+            {
+                var now = DateTimeOffset.Now;
+                var diff = now - stoppedTime;
+                DateTimeStarted += diff;
+                SetReady((m) => { }); 
+            }
         }
 
         public void AddEvent(FencingTouchEvent e, Action<string> log)
