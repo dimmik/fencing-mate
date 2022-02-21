@@ -22,6 +22,33 @@ namespace FencMate
         private SoundPlayer FinishedSound;
         private void InitGame()
         {
+            SetupGameConfigControls();
+
+            // bind mouse
+            CatchMouseRecursively(this);
+            Game.OnReadySet = OnReadySet;
+            Game.OnToucheSet = OnToucheSet;
+            Game.OnTouchFrom = OnTouchFrom;
+            Game.OnToucheTouch = OnToucheTouch;
+            Game.OnStop = OnStop;
+            Game.OnFinished = OnFinished;
+
+            Game.IsFinished = g =>
+            {
+                var (f, p) = GameConfiguration.IsFinished(g);
+                return f;
+            };
+
+            SetupSounds();
+
+            ReflectSoundsInfo();
+
+            InitTimer();
+
+        }
+
+        private void SetupGameConfigControls()
+        {
             var types = Enum.GetValues(typeof(GameType)).Cast<GameType>().Select(e => (object)e).ToArray();
             GameTypeCombobox.Items.Clear();
             GameTypeCombobox.Items.AddRange(types);
@@ -34,29 +61,14 @@ namespace FencMate
             TimeLimitUpDown.Value = (int)GameConfiguration.TimeLimit.TotalMinutes;
             TimeLimitUpDown.ValueChanged += TimeLimitUpDown_ValueChanged;
 
-            // bind mouse
-            CatchMouseRecursively(this);
-            Game.OnReadySet = OnReadySet;
-            Game.OnToucheSet = OnToucheSet;
-            Game.OnTouchFrom = OnTouchFrom;
-            Game.OnToucheTouch = OnToucheTouch;
-            Game.OnStop = OnStop;
-            Game.OnFinished = OnFinished;
-
-            Game.IsFinished = g => {
-                var (f, p) = GameConfiguration.IsFinished(g);
-                return f;
-            };
-
-            SetupSounds();
-
-            ReflectSoundsInfo();
-
-            InitTimer();
-
-            DisplayGameConfig();
+            
         }
-
+        private void SetEnabledGameControls(Control ctl, bool enabled)
+        {
+            GameTypeCombobox.Enabled = enabled;
+            ScoreLimitUpdown.Enabled = enabled;
+            TimeLimitUpDown.Enabled = enabled;
+        }
         private void TimeLimitUpDown_ValueChanged(object sender, EventArgs e)
         {
             var ctl = sender as NumericUpDown;
@@ -80,25 +92,7 @@ namespace FencMate
             }
         }
 
-        private void DisplayGameConfig()
-        {
-            Action a = () =>
-            {
-                /*GameConfigurationLabel.Text = @$"
-Game Configuration:
-Type: {GameConfiguration.GameType}
-ScoreLimit: {GameConfiguration.ScoreLimit}
-TimeLimit: {GameConfiguration.TimeLimit}
-";*/
-            };
-            if (InvokeRequired)
-            {
-                Invoke(a);
-            } else
-            {
-                a();
-            }
-        }
+        
 
         private void InitTimer()
         {
@@ -111,6 +105,7 @@ TimeLimit: {GameConfiguration.TimeLimit}
                         var timeLimit = GameConfiguration.TimeLimit;
                         TimeSpan remains = timeLimit - (now - gStart);
                         TimerLabel.Text = $@"{remains:mm\:ss}";
+                        if (Game.IsFinished(Game)) Game.Finish();
                     }
                     };
                 if (InvokeRequired) 
@@ -145,6 +140,7 @@ TimeLimit: {GameConfiguration.TimeLimit}
                 CatchMouseRecursively(c);
             }
         }
+        
 
         private void KeyboardDown(object sender, KeyEventArgs e)
         {
@@ -279,6 +275,7 @@ TimeLimit: {GameConfiguration.TimeLimit}
                 LeftPlayer.BackColor = this.BackColor;
                 RightPlayer.BackColor = this.BackColor;
                 GameStateInfo.Text = "READY";
+                SetEnabledGameControls(this, false);
                 Task.Run(() => { if (Sounds) ReadySound.Play(); });
             };
             if (InvokeRequired)
@@ -330,6 +327,8 @@ TimeLimit: {GameConfiguration.TimeLimit}
                 RightPlayer.BackColor = this.BackColor;
                 var (f, winner) = GameConfiguration.IsFinished(Game);
                 GameStateInfo.Text = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
+                SetEnabledGameControls(this, true);
+
                 Task.Run(() => { if (Sounds) FinishedSound.Play(); });
             };
             if (InvokeRequired)
@@ -360,7 +359,9 @@ TimeLimit: {GameConfiguration.TimeLimit}
         {
             Action a = () =>
             {
-                GameStateInfo.Text = "Stopped";
+                GameStateInfo.Text = "Stopped"; 
+                SetEnabledGameControls(this, false);
+
                 UpdateViewport();
             };
             if (InvokeRequired)
