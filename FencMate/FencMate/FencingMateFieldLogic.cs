@@ -19,6 +19,7 @@ namespace FencMate
         private SoundPlayer ToucheSound;
         private SoundPlayer ReadySound;
         private SoundPlayer ToucheTouchSound;
+        private SoundPlayer FinishedSound;
         private void InitGame()
         {
             // bind mouse
@@ -91,8 +92,13 @@ TimeLimit: {GameConfiguration.TimeLimit}
         private void SetupSounds()
         {
             ReadySound = new SoundPlayer(@".\Ready.wav");
+            ReadySound.Load();
             ToucheSound = new SoundPlayer(@".\Touche.wav");
+            ToucheSound.Load();
             ToucheTouchSound = new SoundPlayer(@".\ToucheTouch.wav");
+            ToucheTouchSound.Load();
+            FinishedSound = new SoundPlayer(@".\Finished.wav");
+            FinishedSound.Load();
         }
 
         private void CatchMouseRecursively(Control ctl)
@@ -284,7 +290,11 @@ TimeLimit: {GameConfiguration.TimeLimit}
         {
             Action a = () =>
             {
-                GameStateInfo.Text = "Finished";
+                LeftPlayer.BackColor = this.BackColor;
+                RightPlayer.BackColor = this.BackColor;
+                var (f, winner) = GameConfiguration.IsFinished(Game);
+                GameStateInfo.Text = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
+                Task.Run(() => { if (Sounds) FinishedSound.Play(); });
             };
             if (InvokeRequired)
             {

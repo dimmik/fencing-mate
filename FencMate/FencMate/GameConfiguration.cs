@@ -69,7 +69,7 @@ namespace FencMate
         {
             return rEvents.Count() > lEvents.Count()
                                     ? PlayerPosition.Right
-                                    : rEvents.Count() > lEvents.Count()
+                                    : rEvents.Count() < lEvents.Count()
                                         ? PlayerPosition.Left
                                         : (PlayerPosition?)null;
         }

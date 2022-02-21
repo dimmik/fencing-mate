@@ -66,14 +66,14 @@ namespace FencMate
             // GameStateInfo
             // 
             this.GameStateInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.GameStateInfo.AutoSize = true;
             this.GameStateInfo.BackColor = System.Drawing.SystemColors.Window;
             this.GameStateInfo.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GameStateInfo.Location = new System.Drawing.Point(320, 28);
             this.GameStateInfo.Name = "GameStateInfo";
-            this.GameStateInfo.Size = new System.Drawing.Size(147, 46);
+            this.GameStateInfo.Size = new System.Drawing.Size(147, 100);
             this.GameStateInfo.TabIndex = 2;
             this.GameStateInfo.Text = "Stopped";
+            this.GameStateInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1
             // 
@@ -131,7 +131,7 @@ namespace FencMate
             // 
             this.GameConfigurationLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GameConfigurationLabel.AutoSize = true;
-            this.GameConfigurationLabel.Location = new System.Drawing.Point(291, 102);
+            this.GameConfigurationLabel.Location = new System.Drawing.Point(291, 138);
             this.GameConfigurationLabel.Name = "GameConfigurationLabel";
             this.GameConfigurationLabel.Size = new System.Drawing.Size(115, 15);
             this.GameConfigurationLabel.TabIndex = 8;
