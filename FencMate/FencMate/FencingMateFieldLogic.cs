@@ -22,6 +22,18 @@ namespace FencMate
         private SoundPlayer FinishedSound;
         private void InitGame()
         {
+            var types = Enum.GetValues(typeof(GameType)).Cast<GameType>().Select(e => (object)e).ToArray();
+            GameTypeCombobox.Items.Clear();
+            GameTypeCombobox.Items.AddRange(types);
+            GameTypeCombobox.SelectedIndex = Array.IndexOf(types, GameConfiguration.GameType);
+            GameTypeCombobox.SelectedIndexChanged += GameTypeCombobox_SelectedIndexChanged;
+
+            ScoreLimitUpdown.Value = GameConfiguration.ScoreLimit;
+            ScoreLimitUpdown.ValueChanged += ScoreLimitUpdown_ValueChanged;
+
+            TimeLimitUpDown.Value = (int)GameConfiguration.TimeLimit.TotalMinutes;
+            TimeLimitUpDown.ValueChanged += TimeLimitUpDown_ValueChanged;
+
             // bind mouse
             CatchMouseRecursively(this);
             Game.OnReadySet = OnReadySet;
@@ -45,16 +57,39 @@ namespace FencMate
             DisplayGameConfig();
         }
 
+        private void TimeLimitUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            var ctl = sender as NumericUpDown;
+            GameConfiguration.TimeLimit = TimeSpan.FromMinutes((int)ctl.Value);
+        }
+
+        private void ScoreLimitUpdown_ValueChanged(object sender, EventArgs e)
+        {
+            var ctl = sender as NumericUpDown;
+            GameConfiguration.ScoreLimit = (int)ctl.Value;
+        }
+
+        private void GameTypeCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            var i = comboBox.SelectedIndex;
+            var gt = comboBox.Items[i] as GameType?;
+            if (gt != null)
+            {
+                GameConfiguration.GameType = gt ?? GameType.AbsoluteScoreLimit;
+            }
+        }
+
         private void DisplayGameConfig()
         {
             Action a = () =>
             {
-                GameConfigurationLabel.Text = @$"
+                /*GameConfigurationLabel.Text = @$"
 Game Configuration:
 Type: {GameConfiguration.GameType}
 ScoreLimit: {GameConfiguration.ScoreLimit}
 TimeLimit: {GameConfiguration.TimeLimit}
-";
+";*/
             };
             if (InvokeRequired)
             {
@@ -113,6 +148,7 @@ TimeLimit: {GameConfiguration.TimeLimit}
 
         private void KeyboardDown(object sender, KeyEventArgs e)
         {
+            e.Handled = true;
             if (e.KeyCode == Keys.Space)
             {
                 ToggleSound();
