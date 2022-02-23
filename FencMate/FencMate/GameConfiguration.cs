@@ -8,7 +8,7 @@ namespace FencMate
     public class GameConfiguration
     {
         public GameType GameType { get; set; } = GameType.AbsoluteScoreLimit;
-        public int ScoreLimit { get; set; } = 5;
+        public int ScoreLimit { get; set; } = 10;
         public TimeSpan TimeLimit { get; set; } = TimeSpan.FromMinutes(5);
         public (bool finished, PlayerPosition? winner) IsFinished(FencingGame game)
         {
