@@ -296,9 +296,9 @@ namespace FencMate
         {
             Action a = () =>
             {
-                LeftPlayer.BackColor = this.BackColor;
-                RightPlayer.BackColor = this.BackColor;
                 var (f, winner) = GameConfiguration.IsFinished(Game);
+                LeftPlayer.BackColor = winner == PlayerPosition.Left ? Color.Red : this.BackColor;
+                RightPlayer.BackColor = winner == PlayerPosition.Right ? Color.Green : this.BackColor;
                 GameStateInfo.Text = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
                 SetEnabledGameControls(this, true);
 
@@ -319,7 +319,7 @@ namespace FencMate
             Action a = () =>
             {
                 GameStateInfo.Text = "Stopped"; 
-                SetEnabledGameControls(this, false);
+                SetEnabledGameControls(this, true);
 
                 UpdateViewport();
             };

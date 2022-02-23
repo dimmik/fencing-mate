@@ -8,7 +8,9 @@ namespace FencMate
     public class FencingGame
     {
         private readonly int SameDiffInMs = 40; // 0.04 s
-        private readonly int ReadyInMs = 1400; // 2 s
+        private readonly int ReadyInMsFrom = 1400; // 2 s
+        private readonly int ReadyInMsTo = 2500; // 2 s
+        private Random r = new Random();
         private List<FencingTouchEvent> events { get; } = new List<FencingTouchEvent>();
         public DateTimeOffset DateTimeStarted { get; private set; } = DateTimeOffset.Now;
         public IEnumerable<FencingTouchEvent> Events => events;
@@ -101,7 +103,7 @@ namespace FencMate
                 if (!IsFinished(this))
                 {
                     // 3s after touche new touche
-                    ReadyTimer = new Timer((s) => { SetReady(log); }, null, ReadyInMs, Timeout.Infinite);
+                    ReadyTimer = new Timer((s) => { SetReady(log); }, null, (r.Next(ReadyInMsFrom, ReadyInMsTo)), Timeout.Infinite);
                 } else
                 {
                     Finish();

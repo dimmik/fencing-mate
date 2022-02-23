@@ -198,6 +198,7 @@ namespace FencMate
             // 
             // ScoreLimitUpdown
             // 
+            this.ScoreLimitUpdown.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ScoreLimitUpdown.Location = new System.Drawing.Point(436, 202);
             this.ScoreLimitUpdown.Name = "ScoreLimitUpdown";
             this.ScoreLimitUpdown.Size = new System.Drawing.Size(37, 23);
@@ -205,6 +206,7 @@ namespace FencMate
             // 
             // TimeLimitUpDown
             // 
+            this.TimeLimitUpDown.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TimeLimitUpDown.Location = new System.Drawing.Point(436, 233);
             this.TimeLimitUpDown.Name = "TimeLimitUpDown";
             this.TimeLimitUpDown.Size = new System.Drawing.Size(37, 23);
@@ -232,7 +234,7 @@ namespace FencMate
             this.Controls.Add(this.RightPlayer);
             this.Controls.Add(this.LeftPlayer);
             this.Name = "FencingMateField";
-            this.Text = "ScoreLimit";
+            this.Text = "Epee Fencing Mate";
             ((System.ComponentModel.ISupportInitialize)(this.ScoreLimitUpdown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeLimitUpDown)).EndInit();
             this.ResumeLayout(false);
