@@ -1,5 +1,5 @@
 # fencing-mate
-Free tool to track epee fencing
+Tool to track epee fencing
 
 You will need two wireless mice and some mad skills to make wireless touch detectors.
 
