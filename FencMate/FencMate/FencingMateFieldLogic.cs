@@ -115,7 +115,7 @@ namespace FencMate
         {
             System.Threading.Timer t = new System.Threading.Timer((s) => {
                 Action a = () => {
-                    if (!(Game.State == GameState.Stopped || Game.State == GameState.Finished))
+                    if (!(Game.State.IsStale()))
                     {
                         var gStart = Game.DateTimeStarted;
                         var now = DateTimeOffset.Now;
@@ -161,7 +161,7 @@ namespace FencMate
             }
             if (e.KeyCode == Keys.P) // pause
             {
-                if (Game.State == GameState.Ready || Game.State == GameState.Touche)
+                if (Game.State.IsInprogress())
                 {
                     Game.Stop();
                 }
@@ -217,7 +217,7 @@ namespace FencMate
                 }
                 UpdateViewport();
             }
-            if (Game.State != GameState.Ready && Game.State != GameState.Touche && Game.State != GameState.OneTouch)
+            if (!Game.State.IsInprogress())
             {
                 return;
             }
