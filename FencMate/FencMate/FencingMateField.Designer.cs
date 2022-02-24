@@ -45,6 +45,7 @@ namespace FencMate
             this.GameTypeCombobox = new System.Windows.Forms.ComboBox();
             this.ScoreLimitUpdown = new System.Windows.Forms.NumericUpDown();
             this.TimeLimitUpDown = new System.Windows.Forms.NumericUpDown();
+            this.CheckModeCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreLimitUpdown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeLimitUpDown)).BeginInit();
             this.SuspendLayout();
@@ -54,7 +55,7 @@ namespace FencMate
             this.LeftPlayer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LeftPlayer.AutoSize = true;
             this.LeftPlayer.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LeftPlayer.Location = new System.Drawing.Point(82, 31);
+            this.LeftPlayer.Location = new System.Drawing.Point(249, 85);
             this.LeftPlayer.Name = "LeftPlayer";
             this.LeftPlayer.Size = new System.Drawing.Size(146, 65);
             this.LeftPlayer.TabIndex = 0;
@@ -65,7 +66,7 @@ namespace FencMate
             this.RightPlayer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RightPlayer.AutoSize = true;
             this.RightPlayer.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RightPlayer.Location = new System.Drawing.Point(526, 31);
+            this.RightPlayer.Location = new System.Drawing.Point(693, 85);
             this.RightPlayer.Name = "RightPlayer";
             this.RightPlayer.Size = new System.Drawing.Size(179, 65);
             this.RightPlayer.TabIndex = 1;
@@ -76,7 +77,7 @@ namespace FencMate
             this.GameStateInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GameStateInfo.BackColor = System.Drawing.SystemColors.Window;
             this.GameStateInfo.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GameStateInfo.Location = new System.Drawing.Point(326, 31);
+            this.GameStateInfo.Location = new System.Drawing.Point(493, 85);
             this.GameStateInfo.Name = "GameStateInfo";
             this.GameStateInfo.Size = new System.Drawing.Size(147, 100);
             this.GameStateInfo.TabIndex = 2;
@@ -87,7 +88,7 @@ namespace FencMate
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(270, 12);
+            this.label1.Location = new System.Drawing.Point(437, 66);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(273, 15);
             this.label1.TabIndex = 3;
@@ -98,7 +99,7 @@ namespace FencMate
             this.LeftEvents.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LeftEvents.AutoSize = true;
             this.LeftEvents.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LeftEvents.Location = new System.Drawing.Point(82, 105);
+            this.LeftEvents.Location = new System.Drawing.Point(249, 159);
             this.LeftEvents.Name = "LeftEvents";
             this.LeftEvents.Size = new System.Drawing.Size(66, 25);
             this.LeftEvents.TabIndex = 4;
@@ -109,7 +110,7 @@ namespace FencMate
             this.RightEvents.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RightEvents.AutoSize = true;
             this.RightEvents.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RightEvents.Location = new System.Drawing.Point(526, 105);
+            this.RightEvents.Location = new System.Drawing.Point(693, 159);
             this.RightEvents.Name = "RightEvents";
             this.RightEvents.Size = new System.Drawing.Size(66, 25);
             this.RightEvents.TabIndex = 5;
@@ -119,7 +120,7 @@ namespace FencMate
             // 
             this.SoundsLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SoundsLabel.AutoSize = true;
-            this.SoundsLabel.Location = new System.Drawing.Point(568, 12);
+            this.SoundsLabel.Location = new System.Drawing.Point(735, 66);
             this.SoundsLabel.Name = "SoundsLabel";
             this.SoundsLabel.Size = new System.Drawing.Size(158, 15);
             this.SoundsLabel.TabIndex = 6;
@@ -129,7 +130,7 @@ namespace FencMate
             // 
             this.KbdInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.KbdInfo.AutoSize = true;
-            this.KbdInfo.Location = new System.Drawing.Point(35, 12);
+            this.KbdInfo.Location = new System.Drawing.Point(202, 66);
             this.KbdInfo.Name = "KbdInfo";
             this.KbdInfo.Size = new System.Drawing.Size(117, 15);
             this.KbdInfo.TabIndex = 7;
@@ -139,7 +140,7 @@ namespace FencMate
             // 
             this.GameConfigurationLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GameConfigurationLabel.AutoSize = true;
-            this.GameConfigurationLabel.Location = new System.Drawing.Point(297, 141);
+            this.GameConfigurationLabel.Location = new System.Drawing.Point(464, 195);
             this.GameConfigurationLabel.Name = "GameConfigurationLabel";
             this.GameConfigurationLabel.Size = new System.Drawing.Size(115, 15);
             this.GameConfigurationLabel.TabIndex = 8;
@@ -150,7 +151,7 @@ namespace FencMate
             this.TimerLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TimerLabel.AutoSize = true;
             this.TimerLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TimerLabel.Location = new System.Drawing.Point(297, 268);
+            this.TimerLabel.Location = new System.Drawing.Point(464, 322);
             this.TimerLabel.Name = "TimerLabel";
             this.TimerLabel.Size = new System.Drawing.Size(191, 86);
             this.TimerLabel.TabIndex = 9;
@@ -160,7 +161,7 @@ namespace FencMate
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(297, 178);
+            this.label2.Location = new System.Drawing.Point(464, 232);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 15);
             this.label2.TabIndex = 10;
@@ -170,7 +171,7 @@ namespace FencMate
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(294, 210);
+            this.label3.Location = new System.Drawing.Point(461, 264);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 15);
             this.label3.TabIndex = 11;
@@ -180,7 +181,7 @@ namespace FencMate
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(294, 241);
+            this.label4.Location = new System.Drawing.Point(461, 295);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 15);
             this.label4.TabIndex = 12;
@@ -191,7 +192,7 @@ namespace FencMate
             this.GameTypeCombobox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GameTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GameTypeCombobox.FormattingEnabled = true;
-            this.GameTypeCombobox.Location = new System.Drawing.Point(386, 170);
+            this.GameTypeCombobox.Location = new System.Drawing.Point(553, 224);
             this.GameTypeCombobox.Name = "GameTypeCombobox";
             this.GameTypeCombobox.Size = new System.Drawing.Size(143, 23);
             this.GameTypeCombobox.TabIndex = 13;
@@ -199,7 +200,7 @@ namespace FencMate
             // ScoreLimitUpdown
             // 
             this.ScoreLimitUpdown.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ScoreLimitUpdown.Location = new System.Drawing.Point(436, 202);
+            this.ScoreLimitUpdown.Location = new System.Drawing.Point(603, 256);
             this.ScoreLimitUpdown.Name = "ScoreLimitUpdown";
             this.ScoreLimitUpdown.Size = new System.Drawing.Size(37, 23);
             this.ScoreLimitUpdown.TabIndex = 14;
@@ -207,16 +208,29 @@ namespace FencMate
             // TimeLimitUpDown
             // 
             this.TimeLimitUpDown.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TimeLimitUpDown.Location = new System.Drawing.Point(436, 233);
+            this.TimeLimitUpDown.Location = new System.Drawing.Point(603, 287);
             this.TimeLimitUpDown.Name = "TimeLimitUpDown";
             this.TimeLimitUpDown.Size = new System.Drawing.Size(37, 23);
             this.TimeLimitUpDown.TabIndex = 15;
+            // 
+            // CheckModeCheckbox
+            // 
+            this.CheckModeCheckbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CheckModeCheckbox.AutoSize = true;
+            this.CheckModeCheckbox.Enabled = false;
+            this.CheckModeCheckbox.Location = new System.Drawing.Point(525, 12);
+            this.CheckModeCheckbox.Name = "CheckModeCheckbox";
+            this.CheckModeCheckbox.Size = new System.Drawing.Size(93, 19);
+            this.CheckModeCheckbox.TabIndex = 16;
+            this.CheckModeCheckbox.Text = "Check Mode";
+            this.CheckModeCheckbox.UseVisualStyleBackColor = true;
             // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 456);
+            this.ClientSize = new System.Drawing.Size(1146, 564);
+            this.Controls.Add(this.CheckModeCheckbox);
             this.Controls.Add(this.TimeLimitUpDown);
             this.Controls.Add(this.ScoreLimitUpdown);
             this.Controls.Add(this.GameTypeCombobox);
@@ -260,6 +274,7 @@ namespace FencMate
         private System.Windows.Forms.ComboBox GameTypeCombobox;
         private System.Windows.Forms.NumericUpDown ScoreLimitUpdown;
         private System.Windows.Forms.NumericUpDown TimeLimitUpDown;
+        private System.Windows.Forms.CheckBox CheckModeCheckbox;
     }
 }
 
