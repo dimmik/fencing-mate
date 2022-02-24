@@ -45,6 +45,7 @@ namespace FencMate
             this.GameTypeCombobox = new System.Windows.Forms.ComboBox();
             this.ScoreLimitUpdown = new System.Windows.Forms.NumericUpDown();
             this.TimeLimitUpDown = new System.Windows.Forms.NumericUpDown();
+            this.CheckModeCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreLimitUpdown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeLimitUpDown)).BeginInit();
             this.SuspendLayout();
@@ -212,11 +213,24 @@ namespace FencMate
             this.TimeLimitUpDown.Size = new System.Drawing.Size(37, 23);
             this.TimeLimitUpDown.TabIndex = 15;
             // 
+            // CheckModeCheckbox
+            // 
+            this.CheckModeCheckbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CheckModeCheckbox.AutoSize = true;
+            this.CheckModeCheckbox.Enabled = false;
+            this.CheckModeCheckbox.Location = new System.Drawing.Point(525, 12);
+            this.CheckModeCheckbox.Name = "CheckModeCheckbox";
+            this.CheckModeCheckbox.Size = new System.Drawing.Size(93, 19);
+            this.CheckModeCheckbox.TabIndex = 16;
+            this.CheckModeCheckbox.Text = "Check Mode";
+            this.CheckModeCheckbox.UseVisualStyleBackColor = true;
+            // 
             // FencingMateField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1146, 564);
+            this.Controls.Add(this.CheckModeCheckbox);
             this.Controls.Add(this.TimeLimitUpDown);
             this.Controls.Add(this.ScoreLimitUpdown);
             this.Controls.Add(this.GameTypeCombobox);
@@ -260,6 +274,7 @@ namespace FencMate
         private System.Windows.Forms.ComboBox GameTypeCombobox;
         private System.Windows.Forms.NumericUpDown ScoreLimitUpdown;
         private System.Windows.Forms.NumericUpDown TimeLimitUpDown;
+        private System.Windows.Forms.CheckBox CheckModeCheckbox;
     }
 }
 

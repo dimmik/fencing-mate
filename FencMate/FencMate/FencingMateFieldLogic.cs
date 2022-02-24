@@ -14,6 +14,9 @@ namespace FencMate
     partial class FencingMateField
     {
         private readonly FencingGame Game = new FencingGame();
+        
+        private bool CheckMode = false;
+
         private readonly GameConfiguration GameConfiguration = new GameConfiguration();
         private bool Sounds = false;
         private SoundPlayer ToucheSound;
@@ -44,7 +47,6 @@ namespace FencMate
             ReflectSoundsInfo();
 
             InitTimer();
-
         }
 
         private void SetupGameConfigControls()
@@ -143,8 +145,8 @@ namespace FencMate
 
         private void CatchMouseRecursively(Control ctl)
         {
-            ctl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToucheMouseDown);
-            ctl.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyboardDown);
+            ctl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ProcessMouseDown);
+            ctl.KeyDown += new System.Windows.Forms.KeyEventHandler(ProcessKeyboardDown);
             foreach (Control c in ctl.Controls)
             {
                 CatchMouseRecursively(c);
@@ -152,7 +154,7 @@ namespace FencMate
         }
         
 
-        private void KeyboardDown(object sender, KeyEventArgs e)
+        private void ProcessKeyboardDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
             if (e.KeyCode == Keys.Space)
@@ -161,6 +163,9 @@ namespace FencMate
             }
             if (e.KeyCode == Keys.P) // pause
             {
+                CheckMode = false;
+                ReflectCheckMode();
+
                 if (Game.State.IsInprogress())
                 {
                     Game.Stop();
@@ -176,6 +181,8 @@ namespace FencMate
             }
             if (e.KeyCode == Keys.R) // reset
             {
+                CheckMode = false;
+                ReflectCheckMode();
                 if (Game.State == GameState.Stopped || Game.IsFinished(Game))
                 {
                     Game.Start();
@@ -186,6 +193,23 @@ namespace FencMate
                 }
                 UpdateViewport();
             }
+            if (e.KeyCode == Keys.C) // check mode
+            {
+                if (!Game.State.IsInprogress())
+                {
+                    CheckMode = !CheckMode;
+                    ReflectCheckMode();
+                }
+            }
+        }
+
+        private void ReflectCheckMode()
+        {
+            Action a = () =>
+            {
+                CheckModeCheckbox.Checked = CheckMode;
+            };
+            SafeInvoke(a);
         }
 
         private void ToggleSound()
@@ -203,10 +227,12 @@ namespace FencMate
             SafeInvoke(a);
         }
 
-        private void ToucheMouseDown(object sender, MouseEventArgs e)
+        private void ProcessMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle) // Restart
             {
+                CheckMode = false;
+                ReflectCheckMode();
                 if (Game.State == GameState.Stopped || Game.IsFinished(Game))
                 {
                     Game.Start();
@@ -217,6 +243,14 @@ namespace FencMate
                 }
                 UpdateViewport();
             }
+
+            if (CheckMode) // check buttons
+            {
+                PlayerPosition pp = e.Button == MouseButtons.Left ? PlayerPosition.Left : PlayerPosition.Right;
+                OnTouchFrom(pp);
+                return;
+            }
+
             if (!Game.State.IsInprogress())
             {
                 return;
@@ -243,13 +277,13 @@ namespace FencMate
                 RightPlayer.Text = $"Right {rEvents.Count()}";
                 LeftPlayer.Text = $"Left {lEvents.Count()}";
 
-                LeftEvents.Text  = "Events\r\n" + Touches(lEvents);
-                RightEvents.Text = "Events\r\n" + Touches(rEvents);
+                LeftEvents.Text  = "Events\r\n" + TouchesAsString(lEvents);
+                RightEvents.Text = "Events\r\n" + TouchesAsString(rEvents);
             };
             update();
         }
 
-        private string Touches(IEnumerable<FencingTouchEvent> rEvents)
+        private string TouchesAsString(IEnumerable<FencingTouchEvent> rEvents)
         {
             var s = string.Join("\r\n",
                                 rEvents
