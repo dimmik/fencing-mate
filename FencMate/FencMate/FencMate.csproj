@@ -10,6 +10,15 @@
     <None Update="Finished.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="FinishedDraw.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="FinishedLeftWon.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="FinishedRightWon.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="LeftTouch.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

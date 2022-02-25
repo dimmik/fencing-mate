@@ -18,11 +18,18 @@ namespace FencMate
         private bool CheckMode = false;
 
         private readonly GameConfiguration GameConfiguration = new GameConfiguration();
-        private bool Sounds = false;
+        private bool Sounds = true;
         private SoundPlayer ToucheSound;
         private SoundPlayer ReadySound;
         private SoundPlayer ToucheTouchSound;
+
         private SoundPlayer FinishedSound;
+        private SoundPlayer FinishedLSound;
+        private SoundPlayer FinishedRSound;
+        private SoundPlayer FinishedDSound;
+
+        private SoundPlayer LeftSound;
+        private SoundPlayer RightSound;
         private void InitGame()
         {
             SetupGameConfigControls();
@@ -141,6 +148,18 @@ namespace FencMate
             ToucheTouchSound.Load();
             FinishedSound = new SoundPlayer(@".\Finished.wav");
             FinishedSound.Load();
+
+            FinishedLSound = new SoundPlayer(@".\FinishedLeftWon.wav");
+            FinishedLSound.Load();
+            FinishedRSound = new SoundPlayer(@".\FinishedRightWon.wav");
+            FinishedRSound.Load();
+            FinishedDSound = new SoundPlayer(@".\FinishedDraw.wav");
+            FinishedDSound.Load();
+
+            LeftSound = new SoundPlayer(@".\LeftTouch.wav");
+            LeftSound.Load();
+            RightSound = new SoundPlayer(@".\RightTouch.wav");
+            RightSound.Load();
         }
 
         private void CatchMouseRecursively(Control ctl)
@@ -312,6 +331,7 @@ namespace FencMate
             Action a = () =>
             {
                 (p == PlayerPosition.Left ? LeftPlayer : RightPlayer).BackColor = p == PlayerPosition.Left ? Color.Red : Color.Green;
+                //Task.Run(() => { if (Sounds) (p == PlayerPosition.Left ? LeftSound : RightSound).Play(); });
             };
             SafeInvoke(a);
         }
@@ -320,9 +340,29 @@ namespace FencMate
             Action a = () =>
             {
                 GameStateInfo.Text = "TOUCHE";
-                Task.Run(() => { if (Sounds) ToucheSound.Play(); });
+                PlayerPosition? touch = null;
+                var twoLastTouches = Game.Events.TakeLast(2);
+                if (twoLastTouches.Count() < 2)
+                {
+                    touch = twoLastTouches.FirstOrDefault().Player;
+                } else
+                {
+                    var last = twoLastTouches.Last();
+                    var first = twoLastTouches.First();
+                    var maxDiff = TimeSpan.FromMilliseconds(Game.SameDiffInMs);
+                    if (last.DateTime - first.DateTime <= maxDiff) // both
+                    {
+                        touch = null;
+                    } else
+                    {
+                        touch = last.Player;
+                    }
+                }
+
+                var ts = touch == PlayerPosition.Left ? LeftSound : touch == PlayerPosition.Right ? RightSound : ToucheSound;
+                if (Sounds) ts.PlaySync();
                 var (finished, winner) = GameConfiguration.IsFinished(Game);
-                if (finished) Game.Stop();
+                if (finished) Game.Finish();
             };
             SafeInvoke(a);
         }
@@ -335,8 +375,8 @@ namespace FencMate
                 RightPlayer.BackColor = winner == PlayerPosition.Right ? Color.Green : this.BackColor;
                 GameStateInfo.Text = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
                 SetEnabledGameControls(this, true);
-
-                Task.Run(() => { if (Sounds) FinishedSound.Play(); });
+                var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound: FinishedDSound;
+                if (Sounds) fs.Play();
             };
             SafeInvoke(a);
         }
@@ -344,7 +384,7 @@ namespace FencMate
         {
             Action a = () =>
             {
-                Task.Run(() => { if (Sounds) ToucheTouchSound.Play(); });
+                if (Sounds) ToucheTouchSound.Play();
             };
             SafeInvoke(a);
         }

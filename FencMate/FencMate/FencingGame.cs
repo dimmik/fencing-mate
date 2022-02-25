@@ -7,7 +7,7 @@ namespace FencMate
 {
     public class FencingGame
     {
-        private readonly int SameDiffInMs = 40; // 0.04 s
+        public readonly int SameDiffInMs = 40; // 0.04 s
         private readonly int ReadyInMsFrom = 1400; // 2 s
         private readonly int ReadyInMsTo = 2500; // 2 s
         private Random r = new Random();
