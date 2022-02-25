@@ -304,6 +304,11 @@ namespace FencMate
             if (!(e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)) return; // only r/l buttons below
 
             PlayerPosition player = e.Button == MouseButtons.Left ? PlayerPosition.Left : PlayerPosition.Right;
+            AddFencingTouchEvent(player);
+        }
+
+        private void AddFencingTouchEvent(PlayerPosition player)
+        {
             var ev = new FencingTouchEvent()
             {
                 DateTime = DateTimeOffset.Now,
