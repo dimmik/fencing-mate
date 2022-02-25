@@ -7,6 +7,13 @@ namespace FencMate
 {
     public class GameConfiguration
     {
+        public GameConfiguration(GameType gameType, int scoreLimit, TimeSpan timeLimit)
+        {
+            GameType = gameType;
+            ScoreLimit = scoreLimit;
+            TimeLimit = timeLimit;
+        }
+
         public GameType GameType { get; set; } = GameType.AbsoluteScoreLimit;
         public int ScoreLimit { get; set; } = 10;
         public TimeSpan TimeLimit { get; set; } = TimeSpan.FromMinutes(5);

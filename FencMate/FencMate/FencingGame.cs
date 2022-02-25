@@ -7,6 +7,7 @@ namespace FencMate
 {
     public class FencingGame
     {
+
         public readonly int SameDiffInMs = 40; // 0.04 s
         private readonly int ReadyInMsFrom = 1400; // 2 s
         private readonly int ReadyInMsTo = 2500; // 2 s
@@ -127,5 +128,11 @@ namespace FencMate
         private Timer ToucheTimer;
         private Timer ReadyTimer;
 
+        public FencingGame(int sameDiffInMs, int readyInMsFrom, int readyInMsTo)
+        {
+            SameDiffInMs = sameDiffInMs;
+            ReadyInMsFrom = readyInMsFrom;
+            ReadyInMsTo = readyInMsTo;
+        }
     }
 }
