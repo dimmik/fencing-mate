@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -13,12 +14,13 @@ namespace FencMate
 {
     partial class FencingMateField
     {
-        private readonly FencingGame Game = new FencingGame();
+        private FencingGame Game;
         
         private bool CheckMode = false;
-
-        private readonly GameConfiguration GameConfiguration = new GameConfiguration();
         private bool Sounds = true;
+
+        private GameConfiguration GameConfiguration;// = new GameConfiguration();
+
         private SoundPlayer ToucheSound;
         private SoundPlayer ReadySound;
         private SoundPlayer ToucheTouchSound;
@@ -32,6 +34,22 @@ namespace FencMate
         private SoundPlayer RightSound;
         private void InitGame()
         {
+            BuildConfig();
+            Game = new FencingGame(
+                sameDiffInMs: configuration.GetValue("SameDiffInMs",40), 
+                readyInMsFrom: configuration.GetValue("ReadyInMsFrom", 1400), 
+                readyInMsTo: configuration.GetValue("ReadyInMsTo", 2500)
+                );
+            CheckMode = configuration.GetValue("DefaultCheckMode", false);
+            Sounds = configuration.GetValue("DefaultSoundsOn", false);
+
+            GameConfiguration = new GameConfiguration(
+                gameType: configuration.GetValue("GameType", GameType.AbsoluteScoreLimit),
+                scoreLimit: configuration.GetValue("ScoreLimit", 10),
+                timeLimit: TimeSpan.FromSeconds(configuration.GetValue("TimeLimitInS", 4 * 60))
+                );
+
+
             SetupGameConfigControls();
 
             // bind mouse
@@ -54,6 +72,15 @@ namespace FencMate
             ReflectSoundsInfo();
 
             InitTimer();
+        }
+        private IConfiguration configuration;
+
+        private void BuildConfig()
+        {
+            // Build configuration
+            configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true)
+                .Build();
         }
 
         private void SetupGameConfigControls()
