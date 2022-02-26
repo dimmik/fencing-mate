@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FencingGame;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,7 +15,7 @@ namespace FencMate
 {
     partial class FencingMateField
     {
-        private FencingGame Game;
+        private Game Game;
         
         private bool CheckMode = false;
         private bool Sounds = true;
@@ -35,7 +36,7 @@ namespace FencMate
         private void InitGame()
         {
             BuildConfig();
-            Game = new FencingGame(
+            Game = new Game(
                 sameDiffInMs: configuration.GetValue("SameDiffInMs",40), 
                 readyInMsFrom: configuration.GetValue("ReadyInMsFrom", 1400), 
                 readyInMsTo: configuration.GetValue("ReadyInMsTo", 2500)

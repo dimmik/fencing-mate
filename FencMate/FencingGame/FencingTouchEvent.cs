@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FencMate
+namespace FencingGame
 {
     public class FencingTouchEvent
     {
