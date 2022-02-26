@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace FencMate
+namespace FencingGame
 {
-    public class FencingGame
+    public class Game
     {
 
         public readonly int SameDiffInMs = 40; // 0.04 s
@@ -31,7 +31,7 @@ namespace FencMate
         public Action OnStop = () => { };
         public Action OnFinished = () => { };
 
-        public Func<FencingGame, bool> IsFinished = (g) => false;
+        public Func<Game, bool> IsFinished = (g) => false;
         private DateTimeOffset stoppedTime = DateTimeOffset.Now;
         public void Stop()
         {
@@ -128,7 +128,7 @@ namespace FencMate
         private Timer ToucheTimer;
         private Timer ReadyTimer;
 
-        public FencingGame(int sameDiffInMs, int readyInMsFrom, int readyInMsTo)
+        public Game(int sameDiffInMs, int readyInMsFrom, int readyInMsTo)
         {
             SameDiffInMs = sameDiffInMs;
             ReadyInMsFrom = readyInMsFrom;

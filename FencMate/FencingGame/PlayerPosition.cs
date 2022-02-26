@@ -1,4 +1,4 @@
-﻿namespace FencMate
+﻿namespace FencingGame
 {
     public enum PlayerPosition
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FencMate
+namespace FencingGame
 {
     public class GameConfiguration
     {
@@ -17,7 +17,7 @@ namespace FencMate
         public GameType GameType { get; set; } = GameType.AbsoluteScoreLimit;
         public int ScoreLimit { get; set; } = 10;
         public TimeSpan TimeLimit { get; set; } = TimeSpan.FromMinutes(5);
-        public (bool finished, PlayerPosition? winner) IsFinished(FencingGame game)
+        public (bool finished, PlayerPosition? winner) IsFinished(Game game)
         {
             var gameTime = game.DateTimeStarted;
             var now = DateTimeOffset.Now;
