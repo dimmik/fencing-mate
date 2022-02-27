@@ -81,11 +81,6 @@ namespace FencingGameWpf
         private const int HOTKEY_ID = 9000;
 
 
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-            
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -121,6 +116,23 @@ namespace FencingGameWpf
             return IntPtr.Zero;
         }
 
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            //ProcessGameEvent(PlayerPosition.Left);
+            //if (e.)
+        }
+        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
+        {
+            //ProcessGameEvent(PlayerPosition.Right);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+        }
+
         private void ProcessGameEvent(PlayerPosition player)
         {
             if (Game.State.IsInprogress())
@@ -132,6 +144,17 @@ namespace FencingGameWpf
                 };
                 Game.AddEvent(ev, (msg) => { });
             }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right))
+            {
+                return;
+            }
+            
+            PlayerPosition p = e.ChangedButton == MouseButton.Left ? PlayerPosition.Left : PlayerPosition.Right;
+            ProcessGameEvent(p);
         }
     }
 }
