@@ -17,6 +17,7 @@ using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using FencingGame;
 using Microsoft.Extensions.Configuration;
+using System.Media;
 
 namespace FencingGameWpf
 {
@@ -29,6 +30,15 @@ namespace FencingGameWpf
 
         public bool CheckMode { get; private set; }
         public bool Sounds { get; private set; }
+        public SoundPlayer ReadySound { get; private set; }
+        public SoundPlayer ToucheSound { get; private set; }
+        public SoundPlayer ToucheTouchSound { get; private set; }
+        public SoundPlayer FinishedSound { get; private set; }
+        public SoundPlayer FinishedLSound { get; private set; }
+        public SoundPlayer FinishedRSound { get; private set; }
+        public SoundPlayer FinishedDSound { get; private set; }
+        public SoundPlayer LeftSound { get; private set; }
+        public SoundPlayer RightSound { get; private set; }
 
         private GameConfiguration GameConfiguration;
         private IConfiguration configuration;
@@ -37,11 +47,37 @@ namespace FencingGameWpf
             InitializeComponent();
             // init config
             BuildConfig();
+            SetupSounds();
             // init game
             InitGame();
-
             InitTimer();
         }
+
+        private void SetupSounds()
+        {
+            ReadySound = new SoundPlayer(@".\Ready.wav");
+            ReadySound.Load();
+            ToucheSound = new SoundPlayer(@".\Touche.wav");
+            ToucheSound.Load();
+            ToucheTouchSound = new SoundPlayer(@".\ToucheTouch.wav");
+            ToucheTouchSound.Load();
+            FinishedSound = new SoundPlayer(@".\Finished.wav");
+            FinishedSound.Load();
+
+            FinishedLSound = new SoundPlayer(@".\FinishedLeftWon.wav");
+            FinishedLSound.Load();
+            FinishedRSound = new SoundPlayer(@".\FinishedRightWon.wav");
+            FinishedRSound.Load();
+            FinishedDSound = new SoundPlayer(@".\FinishedDraw.wav");
+            FinishedDSound.Load();
+
+            LeftSound = new SoundPlayer(@".\LeftTouch.wav");
+            LeftSound.Load();
+            RightSound = new SoundPlayer(@".\RightTouch.wav");
+            RightSound.Load();
+        }
+
+
         private System.Threading.Timer timerClock;
         private void InitTimer()
         {
@@ -105,8 +141,8 @@ namespace FencingGameWpf
                 RightPlayerLabel.Background = winner == PlayerPosition.Right ? Brushes.Green : this.Background;
                 GameStateInfo.Content = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
                 //SetEnabledGameControls(this, true);
-                //var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
-                //if (Sounds) fs.Play();
+                var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
+                if (Sounds) fs.Play();
             };
             DispatcherInvoke(a);
         }
@@ -162,8 +198,8 @@ namespace FencingGameWpf
                     }
                 }
 
-                //var ts = touch == PlayerPosition.Left ? LeftSound : touch == PlayerPosition.Right ? RightSound : ToucheSound;
-                //if (Sounds) ts.PlaySync();
+                var ts = touch == PlayerPosition.Left ? LeftSound : touch == PlayerPosition.Right ? RightSound : ToucheSound;
+                if (Sounds) ts.PlaySync();
                 var (finished, winner) = GameConfiguration.IsFinished(Game);
                 if (finished) Game.Finish();
                 UpdateViewport();
@@ -181,7 +217,7 @@ namespace FencingGameWpf
                 RightPlayerLabel.Background = this.Background;
                 GameStateInfo.Content = "READY";
                 //SetEnabledGameControls(this, false);
-                //Task.Run(() => { if (Sounds) ReadySound.Play(); });
+                if (Sounds) ReadySound.Play();
             };
             DispatcherInvoke(a);
         }
