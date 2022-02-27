@@ -11,12 +11,12 @@
         KeyDown="Window_KeyDown"
         >
     <Grid>
-        <Label Name="LeftPlayerLabel" Content="Left 0"  HorizontalAlignment="Left" Margin="62,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Name="RightPlayerLabel" Content="Right 0" HorizontalAlignment="Left" Margin="628,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Content="Left Events" Name="LeftEventsLabel" HorizontalAlignment="Left" Height="276" Margin="44,131,0,0" VerticalAlignment="Top" Width="206"/>
-        <Label Content="Right Events" x:Name="RightEventsLabel" HorizontalAlignment="Left" Height="276" Margin="565,121,0,0" VerticalAlignment="Top" Width="206"/>
-        <Label Content="Info" Name="GameStateInfo" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="250,53,0,0" VerticalAlignment="Top" Height="44" Width="279" FontSize="22" FontWeight="Bold"/>
-        <Label Content="00:00" Name="GameTimer" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Height="99" Width="259" FontSize="72"/>
+        <Label Name="LeftPlayerLabel" Content="Left 0" Margin="62,77,532,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
+        <Label Name="RightPlayerLabel" Content="Right 0" Margin="580,77,0,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
+        <Label Content="Left Events" Name="LeftEventsLabel"  Height="276" Margin="62,121,532,0" VerticalAlignment="Top" Width="206"/>
+        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="580,121,0,0" VerticalAlignment="Top" Width="206"/>
+        <Label Content="Info" Name="GameStateInfo" HorizontalContentAlignment="Center" Margin="250,53,270,0" VerticalAlignment="Top" Height="44" Width="279" FontSize="22" FontWeight="Bold"/>
+        <Label Content="00:00" Name="GameTimer"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Height="99" Width="259" FontSize="72"/>
 
     </Grid>
 </Window>
