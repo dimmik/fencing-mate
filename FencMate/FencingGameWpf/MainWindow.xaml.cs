@@ -39,6 +39,26 @@ namespace FencingGameWpf
             BuildConfig();
             // init game
             InitGame();
+
+            InitTimer();
+        }
+        private System.Threading.Timer timerClock;
+        private void InitTimer()
+        {
+            timerClock = new System.Threading.Timer((s) => {
+                Action a = () => {
+                    if (!(Game.State.IsStale()))
+                    {
+                        var gStart = Game.DateTimeStarted;
+                        var now = DateTimeOffset.Now;
+                        var timeLimit = GameConfiguration.TimeLimit;
+                        TimeSpan remains = timeLimit - (now - gStart);
+                        GameTimer.Content = $@"{remains:mm\:ss}";
+                        if (Game.IsFinished(Game)) Game.Finish();
+                    }
+                };
+                DispatcherInvoke(a);
+            }, null, 1000, 1000);
         }
 
         private void InitGame()
@@ -88,7 +108,7 @@ namespace FencingGameWpf
                 //var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
                 //if (Sounds) fs.Play();
             };
-            Dispatcher.Invoke(a);
+            DispatcherInvoke(a);
         }
 
         private void OnStop()
@@ -100,7 +120,7 @@ namespace FencingGameWpf
 
                 UpdateViewport();
             };
-            Dispatcher.Invoke(a);
+            DispatcherInvoke(a);
         }
 
         private void OnToucheTouch()
@@ -114,7 +134,7 @@ namespace FencingGameWpf
             {
                 (p == PlayerPosition.Left ? LeftPlayerLabel : RightPlayerLabel).Background = p == PlayerPosition.Left ? Brushes.Red : Brushes.Green;
             };
-            this.Dispatcher.Invoke(a);
+            DispatcherInvoke(a);
         }
         private void OnToucheSet()
         {
@@ -148,7 +168,7 @@ namespace FencingGameWpf
                 if (finished) Game.Finish();
                 UpdateViewport();
             };
-            Dispatcher.Invoke(a);
+            DispatcherInvoke(a);
         }
 
         //private Label 
@@ -163,7 +183,18 @@ namespace FencingGameWpf
                 //SetEnabledGameControls(this, false);
                 //Task.Run(() => { if (Sounds) ReadySound.Play(); });
             };
-            this.Dispatcher.Invoke(a);
+            DispatcherInvoke(a);
+        }
+
+        private void DispatcherInvoke(Action a)
+        {
+            try
+            {
+                Dispatcher.Invoke(a);
+            } catch
+            {
+                // bad luck.
+            }
         }
 
         private void UpdateViewport()
@@ -185,7 +216,7 @@ namespace FencingGameWpf
         {
             var s = string.Join("\r\n",
                                 rEvents
-                                .Select((e, idx) => $@"{idx + 1}. {e.DateTime - Game.DateTimeStarted:mm\:ss\.fff} {(e.IsDouble ? "DBL" : "")}")
+                                .Select((e, idx) => $@"{idx + 1}. {e.DateTime - (Game.DateTimeStarted - Game.PausedTime):mm\:ss\.fff} {(e.IsDouble ? "DBL" : "")}")
                                 .Reverse()
                                 .Take(15)
                                 );
@@ -279,16 +310,35 @@ namespace FencingGameWpf
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            return;
-            if ((e.Key != Key.L && e.Key != Key.K && e.Key != Key.VolumeDown && e.Key != Key.VolumeUp)) return;
-
-            PlayerPosition p = (e.Key == Key.L || e.Key == Key.VolumeDown) ? PlayerPosition.Left : PlayerPosition.Right;
-            var ev = new FencingTouchEvent()
+            switch (e.Key)
             {
-                DateTime = DateTimeOffset.Now,
-                Player = p
-            };
-            ProcessGameEvent(ev);
+                case Key.P: // Pause
+                    if (Game.State.IsInprogress())
+                    {
+                        Game.Stop();
+                    }
+                    else
+                    {
+                        if (!Game.IsFinished(Game))
+                        {
+                            Game.Resume();
+                        }
+                    }
+                    UpdateViewport();
+                    break;
+                case Key.R:
+                    if (Game.State.IsInprogress())
+                    {
+                        Game.Stop();
+                    }
+                    else
+                    {
+                        Game.Start();
+                    }
+                    UpdateViewport();
+                    break;
+            }
+
         }
     }
 }

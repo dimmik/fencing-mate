@@ -339,7 +339,7 @@ namespace FencMate
         {
             var s = string.Join("\r\n",
                                 rEvents
-                                .Select((e, idx) => $@"{idx + 1}. {e.DateTime - Game.DateTimeStarted:mm\:ss\.fff} {(e.IsDouble ? "DBL" : "")}")
+                                .Select((e, idx) => $@"{idx + 1}. {e.DateTime - (Game.DateTimeStarted - Game.PausedTime):mm\:ss\.fff} {(e.IsDouble ? "DBL" : "")}")
                                 .Reverse()
                                 .Take(15)
                                 );
