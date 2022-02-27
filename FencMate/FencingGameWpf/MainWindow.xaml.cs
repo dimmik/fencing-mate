@@ -196,13 +196,14 @@ namespace FencingGameWpf
             source = HwndSource.FromHwnd(handle);
             source.AddHook(HwndHook);
 
-            //RegisterHotKey(handle, HOTKEY_ID, 0x0, 173); // hotkey vol onoff
+            RegisterHotKey(handle, HOTKEY_ID, 0x0, 173); // hotkey vol onoff
             RegisterHotKey(handle, HOTKEY_ID, 0x0, 174); // hotkey vol down
             RegisterHotKey(handle, HOTKEY_ID, 0x0, 175); // hotkey vol up
         }
-
+        private List<(DateTimeOffset, PlayerPosition)> hotkeys = new List<(DateTimeOffset, PlayerPosition)>();
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            //return IntPtr.Zero;
             const int WM_HOTKEY = 0x0312;
             switch (msg)
             {
@@ -210,13 +211,21 @@ namespace FencingGameWpf
                     switch (wParam.ToInt32())
                     {
                         case HOTKEY_ID:
+                            var n = DateTimeOffset.Now;
                             int vkey = (((int)lParam >> 16) & 0xFFFF);
+                            var hc = hotkeys.Select(h => $"{h.Item1:mm:ss.ffffff} {h.Item2}").ToArray();
                             if (vkey == 174 || vkey == 175) // vol down or up
                             {
                                 PlayerPosition p = vkey == 174 ? PlayerPosition.Left : PlayerPosition.Right;
-                                ProcessGameEvent(p);
+                                hotkeys.Add((n, p));
+                                var ev = new FencingTouchEvent()
+                                {
+                                    DateTime = n,
+                                    Player = p
+                                };
+                                ProcessGameEvent(ev);
                             }
-                            handled = true;
+                            //handled = true;
                             break;
                     }
                     break;
@@ -224,32 +233,10 @@ namespace FencingGameWpf
             return IntPtr.Zero;
         }
 
-
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            //ProcessGameEvent(PlayerPosition.Left);
-            //if (e.)
-        }
-        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
-        {
-            //ProcessGameEvent(PlayerPosition.Right);
-        }
-
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-        }
-
-        private void ProcessGameEvent(PlayerPosition player)
+        private void ProcessGameEvent(FencingTouchEvent ev)
         {
             if (Game.State.IsInprogress())
             {
-                var ev = new FencingTouchEvent()
-                {
-                    DateTime = DateTimeOffset.Now,
-                    Player = player
-                };
                 Game.AddEvent(ev, (msg) => { });
             }
         }
@@ -262,8 +249,26 @@ namespace FencingGameWpf
             }
             
             PlayerPosition p = e.ChangedButton == MouseButton.Left ? PlayerPosition.Left : PlayerPosition.Right;
-            ProcessGameEvent(p);
+            var ev = new FencingTouchEvent()
+            {
+                DateTime = DateTimeOffset.Now,
+                Player = p
+            };
+            ProcessGameEvent(ev);
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            return;
+            if ((e.Key != Key.L && e.Key != Key.K && e.Key != Key.VolumeDown && e.Key != Key.VolumeUp)) return;
+
+            PlayerPosition p = (e.Key == Key.L || e.Key == Key.VolumeDown) ? PlayerPosition.Left : PlayerPosition.Right;
+            var ev = new FencingTouchEvent()
+            {
+                DateTime = DateTimeOffset.Now,
+                Player = p
+            };
+            ProcessGameEvent(ev);
+        }
     }
 }

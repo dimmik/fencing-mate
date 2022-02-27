@@ -8,6 +8,7 @@
         Title="MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded"
         MouseDown="Window_MouseDown"
+        KeyDown="Window_KeyDown"
         >
     <Grid>
         <Label Name="LeftPlayerLabel" Content="Left 0"  HorizontalAlignment="Left" Margin="62,77,0,0" VerticalAlignment="Top" FontSize="22"/>
