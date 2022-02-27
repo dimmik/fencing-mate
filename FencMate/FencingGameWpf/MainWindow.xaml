@@ -15,6 +15,7 @@
         <Label Name="RightPlayerLabel" Content="Right 0" HorizontalAlignment="Left" Margin="628,77,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Label Content="Left Events" Name="LeftEventsLabel" HorizontalAlignment="Left" Height="276" Margin="44,131,0,0" VerticalAlignment="Top" Width="206"/>
         <Label Content="Right Events" x:Name="RightEventsLabel" HorizontalAlignment="Left" Height="276" Margin="565,121,0,0" VerticalAlignment="Top" Width="206"/>
+        <Label Content="Info" Name="GameStateInfo" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="250,53,0,0" VerticalAlignment="Top" Height="44" Width="279" FontSize="22" FontWeight="Bold"/>
 
     </Grid>
 </Window>

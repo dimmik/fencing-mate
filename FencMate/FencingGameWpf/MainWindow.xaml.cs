@@ -78,14 +78,34 @@ namespace FencingGameWpf
 
         private void OnFinished()
         {
+            Action a = () =>
+            {
+                var (f, winner) = GameConfiguration.IsFinished(Game);
+                LeftPlayerLabel.Background = winner == PlayerPosition.Left ? Brushes.Red : this.Background;
+                RightPlayerLabel.Background = winner == PlayerPosition.Right ? Brushes.Green : this.Background;
+                GameStateInfo.Content = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
+                //SetEnabledGameControls(this, true);
+                //var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
+                //if (Sounds) fs.Play();
+            };
+            Dispatcher.Invoke(a);
         }
 
         private void OnStop()
         {
+            Action a = () =>
+            {
+                GameStateInfo.Content = "Stopped";
+                //SetEnabledGameControls(this, true);
+
+                UpdateViewport();
+            };
+            Dispatcher.Invoke(a);
         }
 
         private void OnToucheTouch()
         {
+            // play touche touch aound
         }
 
         private void OnTouchFrom(PlayerPosition p)
@@ -100,7 +120,7 @@ namespace FencingGameWpf
         {
             Action a = () =>
             {
-                //GameStateInfo.Text = "TOUCHE";
+                GameStateInfo.Content = "TOUCHE";
                 PlayerPosition? touch = null;
                 var twoLastTouches = Game.Events.TakeLast(2);
                 if (twoLastTouches.Count() < 2)
@@ -139,7 +159,7 @@ namespace FencingGameWpf
             {
                 LeftPlayerLabel.Background = this.Background;
                 RightPlayerLabel.Background = this.Background;
-                //GameStateInfo.Text = "READY";
+                GameStateInfo.Content = "READY";
                 //SetEnabledGameControls(this, false);
                 //Task.Run(() => { if (Sounds) ReadySound.Play(); });
             };
