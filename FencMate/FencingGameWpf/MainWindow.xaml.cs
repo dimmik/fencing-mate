@@ -57,12 +57,120 @@ namespace FencingGameWpf
                 timeLimit: TimeSpan.FromSeconds(configuration.GetValue("TimeLimitInS", 4 * 60))
                 );
 
+            Game.OnReadySet = OnReadySet;
+            Game.OnToucheSet = OnToucheSet;
+            Game.OnTouchFrom = OnTouchFrom;
+            Game.OnToucheTouch = OnToucheTouch;
+            Game.OnStop = OnStop;
+            Game.OnFinished = OnFinished;
+
+            Game.IsFinished = g =>
+            {
+                var (f, p) = GameConfiguration.IsFinished(g);
+                return f;
+            };
+
             if (configuration.GetValue("GameStartedOnStartup", false))
             {
                 Game.Start();
             }
         }
 
+        private void OnFinished()
+        {
+        }
+
+        private void OnStop()
+        {
+        }
+
+        private void OnToucheTouch()
+        {
+        }
+
+        private void OnTouchFrom(PlayerPosition p)
+        {
+            Action a = () =>
+            {
+                (p == PlayerPosition.Left ? LeftPlayerLabel : RightPlayerLabel).Background = p == PlayerPosition.Left ? Brushes.Red : Brushes.Green;
+            };
+            this.Dispatcher.Invoke(a);
+        }
+        private void OnToucheSet()
+        {
+            Action a = () =>
+            {
+                //GameStateInfo.Text = "TOUCHE";
+                PlayerPosition? touch = null;
+                var twoLastTouches = Game.Events.TakeLast(2);
+                if (twoLastTouches.Count() < 2)
+                {
+                    touch = twoLastTouches.FirstOrDefault().Player;
+                }
+                else
+                {
+                    var last = twoLastTouches.Last();
+                    var first = twoLastTouches.First();
+                    var maxDiff = TimeSpan.FromMilliseconds(Game.SameDiffInMs);
+                    if (last.DateTime - first.DateTime <= maxDiff) // both
+                    {
+                        touch = null;
+                    }
+                    else
+                    {
+                        touch = last.Player;
+                    }
+                }
+
+                //var ts = touch == PlayerPosition.Left ? LeftSound : touch == PlayerPosition.Right ? RightSound : ToucheSound;
+                //if (Sounds) ts.PlaySync();
+                var (finished, winner) = GameConfiguration.IsFinished(Game);
+                if (finished) Game.Finish();
+                UpdateViewport();
+            };
+            Dispatcher.Invoke(a);
+        }
+
+        //private Label 
+
+        private void OnReadySet()
+        {
+            Action a = () =>
+            {
+                LeftPlayerLabel.Background = this.Background;
+                RightPlayerLabel.Background = this.Background;
+                //GameStateInfo.Text = "READY";
+                //SetEnabledGameControls(this, false);
+                //Task.Run(() => { if (Sounds) ReadySound.Play(); });
+            };
+            this.Dispatcher.Invoke(a);
+        }
+
+        private void UpdateViewport()
+        {
+            Action update = () =>
+            {
+                var rEvents = Game.Events.Where(e => e.Player == PlayerPosition.Right);
+                var lEvents = Game.Events.Where(e => e.Player == PlayerPosition.Left);
+                // redraw
+                RightPlayerLabel.Content = $"Right {rEvents.Count()}";
+                LeftPlayerLabel.Content = $"Left {lEvents.Count()}";
+
+                LeftEventsLabel.Content = "Events\r\n" + TouchesAsString(lEvents);
+                RightEventsLabel.Content = "Events\r\n" + TouchesAsString(rEvents);
+            };
+            update();
+        }
+        private string TouchesAsString(IEnumerable<FencingTouchEvent> rEvents)
+        {
+            var s = string.Join("\r\n",
+                                rEvents
+                                .Select((e, idx) => $@"{idx + 1}. {e.DateTime - Game.DateTimeStarted:mm\:ss\.fff} {(e.IsDouble ? "DBL" : "")}")
+                                .Reverse()
+                                .Take(15)
+                                );
+            return s;
+        }
         private void BuildConfig()
         {
             // Build configuration
@@ -156,5 +264,6 @@ namespace FencingGameWpf
             PlayerPosition p = e.ChangedButton == MouseButton.Left ? PlayerPosition.Left : PlayerPosition.Right;
             ProcessGameEvent(p);
         }
+
     }
 }

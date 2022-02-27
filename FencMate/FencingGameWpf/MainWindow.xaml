@@ -10,8 +10,10 @@
         MouseDown="Window_MouseDown"
         >
     <Grid>
-        <Label Content="Left 0" HorizontalAlignment="Left" Margin="62,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Content="Right 0" HorizontalAlignment="Left" Margin="628,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        
+        <Label Name="LeftPlayerLabel" Content="Left 0"  HorizontalAlignment="Left" Margin="62,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Name="RightPlayerLabel" Content="Right 0" HorizontalAlignment="Left" Margin="628,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Content="Left Events" Name="LeftEventsLabel" HorizontalAlignment="Left" Height="276" Margin="44,131,0,0" VerticalAlignment="Top" Width="206"/>
+        <Label Content="Right Events" x:Name="RightEventsLabel" HorizontalAlignment="Left" Height="276" Margin="565,121,0,0" VerticalAlignment="Top" Width="206"/>
+
     </Grid>
 </Window>
