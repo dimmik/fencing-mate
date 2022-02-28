@@ -11,12 +11,13 @@
         KeyDown="Window_KeyDown"
         >
     <Grid>
-        <Label Name="LeftPlayerLabel" Content="Left 0" Margin="62,77,532,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
-        <Label Name="RightPlayerLabel" Content="Right 0" Margin="580,77,0,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
-        <Label Content="Left Events" Name="LeftEventsLabel"  Height="276" Margin="62,121,532,0" VerticalAlignment="Top" Width="206"/>
-        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="580,121,0,0" VerticalAlignment="Top" Width="206"/>
+        <Label Name="LeftPlayerLabel" Content="Left 0" Margin="60,80,530,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
+        <Label Name="RightPlayerLabel" Content="Right 0" Margin="580,80,0,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
+        <Label Content="Left Events" Name="LeftEventsLabel"  Height="276" Margin="60,120,530,0" VerticalAlignment="Top" Width="206"/>
+        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="580,120,0,0" VerticalAlignment="Top" Width="206"/>
         <Label Content="Info" Name="GameStateInfo" HorizontalContentAlignment="Center" Margin="250,53,270,0" VerticalAlignment="Top" Height="44" Width="279" FontSize="22" FontWeight="Bold"/>
         <Label Content="00:00" Name="GameTimer"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Height="99" Width="259" FontSize="72"/>
+        <Label Content="P - Pause/Unpause; R - Pause/Reset" HorizontalAlignment="Left" Height="43" Margin="10,10,0,0" VerticalAlignment="Top" Width="330" FontSize="20"/>
 
     </Grid>
 </Window>
