@@ -40,7 +40,7 @@ namespace FencingGameWpf
         public SoundPlayer LeftSound { get; private set; }
         public SoundPlayer RightSound { get; private set; }
 
-        private GameConfiguration GameConfiguration;
+        private GameConfiguration GameConfiguration = new GameConfiguration(GameType.AbsoluteScoreLimit, 6, TimeSpan.FromMinutes(3));
         private IConfiguration configuration;
         public MainWindow()
         {
@@ -50,7 +50,23 @@ namespace FencingGameWpf
             SetupSounds();
             // init game
             InitGame();
+            InitConfigDisplay();
             InitTimer();
+        }
+
+        private void InitConfigDisplay()
+        {
+            var types = Enum.GetValues(typeof(GameType)).Cast<GameType>().Select(e => (object)e).ToArray();
+            GameTypeComboBox.Items.Clear();
+            foreach (var t in types)
+            {
+                GameTypeComboBox.Items.Add(t);
+            }
+            GameTypeComboBox.SelectedIndex = Array.IndexOf(types, GameConfiguration.GameType);
+
+            ScoreLimitSlider.Value = GameConfiguration.ScoreLimit;
+            TimeLimitSlider.Value = GameConfiguration.TimeLimit.TotalMinutes;
+            //ScoreLimitSlider.
         }
 
         private void SetupSounds()
@@ -375,6 +391,44 @@ namespace FencingGameWpf
                     break;
             }
 
+        }
+
+        private void GameType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var chosenType = e.AddedItems[0] as GameType?;
+            if (chosenType != null)
+                GameConfiguration.GameType = chosenType.Value;
+            UpdateGameConfigD();
+
+        }
+
+        private void UpdateGameConfigD()
+        {
+            DispatcherInvoke(() =>
+            {
+                try
+                {
+
+                    if (ScoreLimitLabel != null) ScoreLimitLabel.Content = $"Up to {GameConfiguration.ScoreLimit}";
+                    if (TimeLimitLabel != null) TimeLimitLabel.Content = $"{GameConfiguration.TimeLimit.TotalMinutes} mins";
+                }
+                catch
+                {
+                    // hmm. not inited yet?..
+                }
+            }
+            );
+        }
+
+        private void ScoreLimitSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GameConfiguration.ScoreLimit = (int)(e?.NewValue ?? GameConfiguration.ScoreLimit);
+            UpdateGameConfigD();
+        }
+        private void TimeLimitSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GameConfiguration.TimeLimit = TimeSpan.FromMinutes((int)(e?.NewValue ?? GameConfiguration.TimeLimit.TotalMinutes));
+            UpdateGameConfigD();
         }
     }
 }
