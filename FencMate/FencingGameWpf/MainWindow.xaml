@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FencingGameWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="900" Width="1200"
         Loaded="Window_Loaded"
         MouseDown="Window_MouseDown"
         KeyDown="Window_KeyDown"
@@ -14,14 +14,14 @@
         <Label Name="LeftPlayerLabel" Content="Left 0" Margin="60,80,530,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
         <Label Name="RightPlayerLabel" Content="Right 0" Margin="580,80,0,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
         <Label Content="Left Events" Name="LeftEventsLabel"  Height="276" Margin="60,120,530,0" VerticalAlignment="Top" Width="206"/>
-        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="580,120,0,0" VerticalAlignment="Top" Width="206"/>
         <Label Content="Info" Name="GameStateInfo" HorizontalContentAlignment="Center" Margin="250,53,270,0" VerticalAlignment="Top" Height="44" Width="279" FontSize="22" FontWeight="Bold"/>
         <Label Content="00:00" Name="GameTimer"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Height="99" Width="259" FontSize="72"/>
         <Label Content="P - Pause/Unpause; R - Pause/Reset" HorizontalAlignment="Left" Height="43" Margin="10,10,0,0" VerticalAlignment="Top" Width="330" FontSize="20"/>
-        <ComboBox x:Name="GameTypeComboBox" HorizontalAlignment="Center" Height="27" Margin="0,133,0,0" VerticalAlignment="Top" Width="254" IsReadOnly="True" 
+        <ComboBox x:Name="GameTypeComboBox" Height="27" Margin="0,133,0,0" VerticalAlignment="Top" Width="254" IsReadOnly="True" 
                   SelectionChanged="GameType_SelectionChanged"/>
+        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="580,120,0,0" VerticalAlignment="Top" Width="206"/>
         <Slider x:Name="ScoreLimitSlider" 
-                HorizontalAlignment="Left" Margin="360,187,0,0" 
+                Margin="360,187,273,0" 
                 VerticalAlignment="Top" Width="167" 
                 RenderTransformOrigin="0.505,0.597" Minimum="1" Maximum="25" 
                 SmallChange="1" TickPlacement="Both" Value="6" ValueChanged="ScoreLimitSlider_ValueChanged" 
@@ -31,11 +31,11 @@
                 
                 />
         <Label x:Name="ScoreLimitLabel" 
-               Content="Up to 6" HorizontalAlignment="Left" 
-               Height="30" Margin="273,187,0,0" VerticalAlignment="Top" Width="67"/>
+               Content="Up to 6" 
+               Height="30" Margin="273,193,460,0" VerticalAlignment="Top" Width="67"/>
 
         <Slider x:Name="TimeLimitSlider" 
-                HorizontalAlignment="Left" Margin="362,228,0,0" 
+                 Margin="360,226,272,0" 
                 VerticalAlignment="Top" Width="168" 
                 RenderTransformOrigin="0.505,0.597" Minimum="1" Maximum="25" 
                 SmallChange="1" TickPlacement="Both" Value="6" ValueChanged="TimeLimitSlider_ValueChanged" 
@@ -45,8 +45,8 @@
                 
                 />
         <Label x:Name="TimeLimitLabel" 
-               Content="Mins: 3" HorizontalAlignment="Left" 
-               Height="30" Margin="273,228,0,0" VerticalAlignment="Top" Width="67"/>
+               Content="Mins: 3" 
+               Height="30" Margin="273,228,460,0" VerticalAlignment="Top" Width="67"/>
 
 
     </Grid>
