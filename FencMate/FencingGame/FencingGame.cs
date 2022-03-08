@@ -14,6 +14,7 @@ namespace FencingGame
         private Random r = new Random();
         private List<FencingTouchEvent> events { get; } = new List<FencingTouchEvent>();
         public DateTimeOffset DateTimeStarted { get; private set; } = DateTimeOffset.Now;
+        public TimeSpan PausedTime { get; private set; } = TimeSpan.FromSeconds(0);
         public IEnumerable<FencingTouchEvent> Events => events;
         public GameState State { get; private set; } = GameState.Stopped;
         public void Start()
@@ -45,6 +46,7 @@ namespace FencingGame
             {
                 var now = DateTimeOffset.Now;
                 var diff = now - stoppedTime;
+                PausedTime += diff;
                 DateTimeStarted += diff;
                 SetReady((m) => { }); 
             }
