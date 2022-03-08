@@ -156,7 +156,7 @@ namespace FencingGameWpf
                 LeftPlayerLabel.Background = winner == PlayerPosition.Left ? Brushes.Red : this.Background;
                 RightPlayerLabel.Background = winner == PlayerPosition.Right ? Brushes.Green : this.Background;
                 GameStateInfo.Content = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
-                //SetEnabledGameControls(this, true);
+                SetEnabledGameControls(this, true);
                 var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
                 if (Sounds) fs.Play();
             };
@@ -168,7 +168,7 @@ namespace FencingGameWpf
             Action a = () =>
             {
                 GameStateInfo.Content = "Stopped";
-                //SetEnabledGameControls(this, true);
+                SetEnabledGameControls(this, true);
 
                 UpdateViewport();
             };
@@ -232,7 +232,7 @@ namespace FencingGameWpf
                 LeftPlayerLabel.Background = this.Background;
                 RightPlayerLabel.Background = this.Background;
                 GameStateInfo.Content = "READY";
-                //SetEnabledGameControls(this, false);
+                SetEnabledGameControls(this, false);
                 if (Sounds) ReadySound.Play();
             };
             DispatcherInvoke(a);
@@ -418,6 +418,13 @@ namespace FencingGameWpf
                 }
             }
             );
+        }
+
+        private void SetEnabledGameControls(Control ctl, bool enabled)
+        {
+            GameTypeComboBox.IsEnabled = enabled;
+            ScoreLimitSlider.IsEnabled = enabled;
+            TimeLimitSlider.IsEnabled = enabled;
         }
 
         private void ScoreLimitSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
