@@ -365,32 +365,42 @@ namespace FencingGameWpf
             switch (e.Key)
             {
                 case Key.P: // Pause
-                    if (Game.State.IsInprogress())
-                    {
-                        Game.Stop();
-                    }
-                    else
-                    {
-                        if (!Game.IsFinished(Game))
-                        {
-                            Game.Resume();
-                        }
-                    }
-                    UpdateViewport();
+                    PauseUnpause();
                     break;
                 case Key.R:
-                    if (Game.State.IsInprogress())
-                    {
-                        Game.Stop();
-                    }
-                    else
-                    {
-                        Game.Start();
-                    }
-                    UpdateViewport();
+                    PauseReset();
                     break;
             }
 
+        }
+
+        private void PauseUnpause()
+        {
+            if (Game.State.IsInprogress())
+            {
+                Game.Stop();
+            }
+            else
+            {
+                if (!Game.IsFinished(Game))
+                {
+                    Game.Resume();
+                }
+            }
+            UpdateViewport();
+        }
+
+        private void PauseReset()
+        {
+            if (Game.State.IsInprogress())
+            {
+                Game.Stop();
+            }
+            else
+            {
+                Game.Start();
+            }
+            UpdateViewport();
         }
 
         private void GameType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -436,6 +446,16 @@ namespace FencingGameWpf
         {
             GameConfiguration.TimeLimit = TimeSpan.FromMinutes((int)(e?.NewValue ?? GameConfiguration.TimeLimit.TotalMinutes));
             UpdateGameConfigD();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PauseUnpause();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            PauseReset();
         }
     }
 }
