@@ -448,12 +448,12 @@ namespace FencingGameWpf
             UpdateGameConfigD();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             PauseUnpause();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             PauseReset();
         }

@@ -47,8 +47,8 @@
         <Label x:Name="TimeLimitLabel" 
                Content="Mins: 3" 
                Height="30" Margin="273,228,460,0" VerticalAlignment="Top" Width="67"/>
-        <Button Content="P" HorizontalAlignment="Left" Height="25" Margin="345,19,0,0" VerticalAlignment="Top" Width="20" Click="Button_Click"/>
-        <Button Content="R" HorizontalAlignment="Left" Height="25" Margin="376,19,0,0" VerticalAlignment="Top" Width="17" Click="Button_Click_1"/>
+        <Button Content="P" HorizontalAlignment="Left" Height="25" Margin="345,19,0,0" VerticalAlignment="Top" Width="20" Click="PauseButton_Click"/>
+        <Button Content="R" HorizontalAlignment="Left" Height="25" Margin="376,19,0,0" VerticalAlignment="Top" Width="17" Click="ResetButton_Click"/>
 
 
     </Grid>
