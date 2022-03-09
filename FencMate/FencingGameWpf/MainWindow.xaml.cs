@@ -158,9 +158,16 @@ namespace FencingGameWpf
             Action a = () =>
             {
                 var (f, winner) = GameConfiguration.IsFinished(Game);
-                LeftPlayerLabel.Background = winner == PlayerPosition.Left ? Brushes.Red : this.Background;
-                RightPlayerLabel.Background = winner == PlayerPosition.Right ? Brushes.Green : this.Background;
-                GameStateInfo.Content = $"Finished\r\nW: {(winner == null ? "No" : winner == PlayerPosition.Left ? "Left" : "Right")}";
+                if (winner != null)
+                {
+                    LeftPlayerLabel.Background = winner == PlayerPosition.Left ? Brushes.Red : this.Background;
+                    RightPlayerLabel.Background = winner == PlayerPosition.Right ? Brushes.Green : this.Background;
+                } else
+                {
+                    LeftPlayerLabel.Background = Brushes.Red;
+                    RightPlayerLabel.Background = Brushes.Green;
+                }
+                GameStateInfo.Content = $"Finished W: {(winner == null ? "Both" : winner == PlayerPosition.Left ? "Left" : "Right")}";
                 SetEnabledGameControls(this, true);
                 var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
                 if (Sounds) fs.Play();
