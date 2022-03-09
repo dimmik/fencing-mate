@@ -11,15 +11,15 @@
         KeyDown="Window_KeyDown"
         >
     <Grid>
-        <Label Name="LeftPlayerLabel" Content="Left 0" Margin="60,80,530,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
-        <Label Name="RightPlayerLabel" Content="Right 0" Margin="580,80,0,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
-        <Label Content="Left Events" Name="LeftEventsLabel"  Height="276" Margin="60,120,530,0" VerticalAlignment="Top" Width="206"/>
+        <Label Name="LeftPlayerLabel" Content="Left 0" Margin="262,80,732,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
+        <Label Name="RightPlayerLabel" Content="Right 0" Margin="787,80,207,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
+        <Label Content="Left Events" Name="LeftEventsLabel"  Height="276" Margin="262,120,732,0" VerticalAlignment="Top" Width="206"/>
         <Label Content="Info" Name="GameStateInfo" HorizontalContentAlignment="Center" Margin="250,53,270,0" VerticalAlignment="Top" Height="44" Width="279" FontSize="22" FontWeight="Bold"/>
         <Label Content="00:00" Name="GameTimer"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Height="99" Width="259" FontSize="72"/>
-        <Label Content="P - Pause/Unpause; R - Pause/Reset" HorizontalAlignment="Left" Height="43" Margin="10,10,0,0" VerticalAlignment="Top" Width="330" FontSize="20"/>
+        <Label Content="P - Pause/Unpause; R - Pause/Reset" HorizontalAlignment="Left" Height="43" Margin="10,13,0,0" VerticalAlignment="Top" Width="330" FontSize="20"/>
         <ComboBox x:Name="GameTypeComboBox" Height="27" Margin="0,133,0,0" VerticalAlignment="Top" Width="254" IsReadOnly="True" 
                   SelectionChanged="GameType_SelectionChanged"/>
-        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="580,120,0,0" VerticalAlignment="Top" Width="206"/>
+        <Label Content="Right Events" Name="RightEventsLabel"  Height="276" Margin="787,120,207,0" VerticalAlignment="Top" Width="206"/>
         <Slider x:Name="ScoreLimitSlider" 
                 Margin="360,187,273,0" 
                 VerticalAlignment="Top" Width="167" 
@@ -47,8 +47,10 @@
         <Label x:Name="TimeLimitLabel" 
                Content="Mins: 3" 
                Height="30" Margin="273,228,460,0" VerticalAlignment="Top" Width="67"/>
-        <Button Content="P" HorizontalAlignment="Left" Height="25" Margin="345,19,0,0" VerticalAlignment="Top" Width="20" Click="PauseButton_Click"/>
-        <Button Content="R" HorizontalAlignment="Left" Height="25" Margin="376,19,0,0" VerticalAlignment="Top" Width="17" Click="ResetButton_Click"/>
+        <Button Content="P" HorizontalAlignment="Left" Height="25" Margin="345,22,0,0" VerticalAlignment="Top" Width="20" Click="PauseButton_Click"/>
+        <Button Content="R" HorizontalAlignment="Left" Height="25" Margin="376,22,0,0" VerticalAlignment="Top" Width="17" Click="ResetButton_Click"/>
+        <Label x:Name="SoundsLabel" Content="(S) Sounds" HorizontalAlignment="Left" Height="34" Margin="814,18,0,0" VerticalAlignment="Top" Width="107" FontSize="20"/>
+        <Button x:Name="SoundsOnButton" Content="S: On" HorizontalAlignment="Left" Height="31" Margin="937,19,0,0" VerticalAlignment="Top" Width="56" FontSize="20" Click="SoundsOnButton_Click"/>
 
 
     </Grid>
