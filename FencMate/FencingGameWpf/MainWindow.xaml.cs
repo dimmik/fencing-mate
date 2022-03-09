@@ -49,9 +49,13 @@ namespace FencingGameWpf
             BuildConfig();
             SetupSounds();
             // init game
-            InitGame();
+            InitGameFromConfig();
             InitConfigDisplay();
             InitTimer();
+
+
+            DispatcherInvoke(() => { SoundsOnButton.Content = $"S: {(Sounds ? "On" : "Off")}"; });
+
         }
 
         private void InitConfigDisplay()
@@ -91,6 +95,7 @@ namespace FencingGameWpf
             LeftSound.Load();
             RightSound = new SoundPlayer(@".\RightTouch.wav");
             RightSound.Load();
+
         }
 
 
@@ -113,7 +118,7 @@ namespace FencingGameWpf
             }, null, 1000, 1000);
         }
 
-        private void InitGame()
+        private void InitGameFromConfig()
         {
             Game = new Game(
                             sameDiffInMs: configuration.GetValue("SameDiffInMs", 40),
@@ -177,7 +182,8 @@ namespace FencingGameWpf
 
         private void OnToucheTouch()
         {
-            // play touche touch aound
+            // play touche touch around
+            if (Sounds) ToucheTouchSound.Play();
         }
 
         private void OnTouchFrom(PlayerPosition p)
@@ -370,8 +376,17 @@ namespace FencingGameWpf
                 case Key.R:
                     PauseReset();
                     break;
+                case Key.S:
+                    SoundsOnOff();
+                    break;
             }
 
+        }
+
+        private void SoundsOnOff()
+        {
+            Sounds = !Sounds;
+            DispatcherInvoke(() => { SoundsOnButton.Content = $"S: {(Sounds ? "On" : "Off")}"; });
         }
 
         private void PauseUnpause()
@@ -456,6 +471,11 @@ namespace FencingGameWpf
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             PauseReset();
+        }
+
+        private void SoundsOnButton_Click(object sender, RoutedEventArgs e)
+        {
+            SoundsOnOff();
         }
     }
 }
