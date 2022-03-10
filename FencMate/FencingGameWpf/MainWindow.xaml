@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FencingGameWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200"
+        Title="Fencing Mate" Height="600" Width="1200"
         Loaded="Window_Loaded"
         MouseDown="Window_MouseDown"
-        KeyDown="Window_KeyDown"
+        KeyDown="Window_KeyDown" Icon="/fenc icon.png"
         >
     <Grid>
         <Label Name="LeftPlayerLabel" Content="Left 0" Margin="262,80,732,0" VerticalAlignment="Top" FontSize="22" Height="44" Width="206"/>
