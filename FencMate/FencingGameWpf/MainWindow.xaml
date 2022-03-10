@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FencingGameWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1200"
+        Title="MainWindow" Height="600" Width="1200"
         Loaded="Window_Loaded"
         MouseDown="Window_MouseDown"
         KeyDown="Window_KeyDown"

@@ -167,7 +167,7 @@ namespace FencingGameWpf
                     LeftPlayerLabel.Background = Brushes.Red;
                     RightPlayerLabel.Background = Brushes.Green;
                 }
-                GameStateInfo.Content = $"Finished W: {(winner == null ? "Both" : winner == PlayerPosition.Left ? "Left" : "Right")}";
+                GameStateInfo.Content = $"Finished W: {(winner == null ? "Draw" : winner == PlayerPosition.Left ? "Left" : "Right")}";
                 SetEnabledGameControls(this, true);
                 var fs = winner == PlayerPosition.Left ? FinishedLSound : winner == PlayerPosition.Right ? FinishedRSound : FinishedDSound;
                 if (Sounds) fs.Play();
