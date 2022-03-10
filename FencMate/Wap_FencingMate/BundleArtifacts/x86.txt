@@ -1,0 +1,2 @@
+MainPackage=C:\work\Proto\fencing-mate-git\FencMate\Wap_FencingMate\bin\x86\Release\Wap_FencingMate_1.0.1.0_x86.msix
+SymbolPackage=C:\work\Proto\fencing-mate-git\FencMate\Wap_FencingMate\obj\x86\Release\Symbols\Wap_FencingMate_1.0.1.0_x86.appxsym
